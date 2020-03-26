@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+</head>
+<link rel="stylesheet" type="text/css" href="reg.css">
+<body>
+    <div style="text-align: center">
+        <form id="rg" action="http://127.0.0.1:3000/" method="POST">
+            <h2>Register a new FriendZone account:</h2>
+            <label>Username: </label><br>
+            <input id=username type="text" required> <br>
+            <label>UserID: </label><br>
+            <input id=userid type="text" required> <br>
+            <label>Password: </label><br>
+            <input id=password type="password" required> <br>
+            <label>Confirm your password: </label><br>
+            <input id=r_password type="password" required> <br>
+            <button type="button" id="okbtn" onclick="check_available()" >OK</button>
+        </form>
+    </div>
+    <script>
+        function check_available() {
+            let username = document.getElementById("username").value;
+            let userid = document.getElementById("userid").value;
+            let password = document.getElementById("password").value;
+            let r_password = document.getElementById("r_password").value;
+
+            if (username === "")
+                window.alert("username cannot be empty!");
+            else if (userid === "")
+                window.alert("UserID cannot be empty!");
+            else if (password === "")
+                window.alert("Password cannot be empty!");
+            else if (password !== r_password)
+                window.alert("Passwords do not match!");
+            /*else {
+                for (i = 0; i < account.number; i++) {
+                    let o_username = account[i];
+                    if (username === o_username) {
+                        window.alert("username is used!");
+                        break;
+                    }
+                }
+            }*/
+            else {
+                window.alert("Registration successful!");
+                document.getElementById("rg").submit();
+            }
+        }
+    </script>
+</body>
+</html>

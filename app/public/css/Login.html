@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<link rel="stylesheet" type="text/css" href="reg.css">
+<body>
+    <div style="text-align: center">
+        <form id="rg" action="http://127.0.0.1:3000/" method="POST">
+            <h2>Login and start using FriendZone!</h2>
+            <label>UserID: </label><br>
+            <input id=userid type="text" required> <br>
+            <label>Password: </label><br>
+            <input id=password type="password" required> <br>
+            <button type="button" id="okbtn" onclick="verify()" >Login</button>
+            <p>
+                Still not having a FriendZone account?
+                <a href="reg_page.html">Click me to register</a>
+            </p>
+        </form>
+    </div>
+    <script>
+        function verify() {
+            let userid = document.getElementById("userid").value;
+            let password = document.getElementById("password").value;
+            //let t = 0;
+
+            if (userid === "")
+                window.alert("UserID is empty!");
+            else if (password === "")
+                window.alert("Password is empty!");
+            /*else {
+                for (i = 0; i < account.number; i++) {
+                    let o_userid = account[i].userid;
+                    let o_password = account[i].password;
+                    if (userid === o_userid || password === o_password) {
+                        t = 1;
+                        break;
+                    }
+                }
+                if (t === 0)
+                    window.alert("UserID and/or password is incorrect!");
+                else {
+                    window.alert("Login successful!");
+                    location.replace("index.html");
+                }
+            }*/
+        }
+    </script>
+</body>
+</html>
