@@ -26,6 +26,9 @@ app.get("/cateogry/leisure",function(req,res,next){
 app.get("/category/ballgame",function(req,res,next){
 	res.send('Ball Game Category Page');
 });
+app.get("/post/join",function(req,res,next){
+	res.send('Join Post Page');
+});
 app.get("/post/create",function(req,res,next){
 	res.send('Create Post Page');
 });
