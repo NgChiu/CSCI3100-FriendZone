@@ -2,11 +2,13 @@
 <html lang="en">
 
 <head>
-    <!--myself-->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <!--myself-->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
   <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
   <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+  <script src="custom_select.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
   <!--myself-->
 
@@ -27,6 +29,18 @@
 
   <!-- Custom styles for this template -->
   <link href="css/clean-blog.min.css" rel="stylesheet">
+  
+  <!-- Jquery for showing tags based on category-->
+  <script>
+    $(document).ready(function(){
+      $(".tag").hide();
+      $("#category").change(function(){
+        var targID  = $(this).val();
+        $(".tag").hide();
+        $('#'+targID).show();
+        })
+    });
+  </script>
 
 </head>
 
@@ -46,10 +60,10 @@
             <a class="nav-link" href="index.html">Home</a>
           </li>
           <!-- need to change-->
-          <li class="nav-item">
-            <a class="nav-link" href="Login.html">Sign In</a>
-          </li>
           <!-- need to change-->
+          <li class="nav-item">
+            <a class="nav-link" href="account.html">Myself</a>
+          </li>
           <li class="nav-item">
             <a class="nav-link" href="about.html">About</a>
           </li>
@@ -57,25 +71,12 @@
           <li class="nav-item">
             <a class="nav-link" href="contact.html">Contact</a>
           </li>
-        </ul>
-                  <!-- Right aligned menu below button -->
-        <button id="demo-menu-lower-right"
-        class="mdl-button mdl-js-button mdl-button--icon">
-          <i class="material-icons">more_vert</i>
-        </button>
-
-        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
-    for="demo-menu-lower-right">
-          <a href="account.html" style="text-decoration: none;">
-            <li class="mdl-menu__item">Myself</li>
-          </a>
-
-          <a href="report.html" target="_blank" style="text-decoration: none;">
-            <li class="mdl-menu__item">Report User</li>
-          </a>
-
-          <li disabled class="mdl-menu__item">Sign Out</li>
-        </ul>
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Sign Out</a>
+          </li>
+          </ul>
+            <!-- Right aligned menu below button -->            
+            
       </div>
     </div>
   </nav>
@@ -96,17 +97,95 @@
   </header>
 
   <!-- Main Content -->
-<!--   <div class="container">
+ <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe nostrum ullam eveniet pariatur voluptates odit, fuga atque ea nobis sit soluta odio, adipisci quas excepturi maxime quae totam ducimus consectetur?</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius praesentium recusandae illo eaque architecto error, repellendus iusto reprehenderit, doloribus, minus sunt. Numquam at quae voluptatum in officia voluptas voluptatibus, minus!</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut consequuntur magnam, excepturi aliquid ex itaque esse est vero natus quae optio aperiam soluta voluptatibus corporis atque iste neque sit tempora!</p>
-      </div>
-    </div>
-  </div>
+        <!-- Textfield with Floating Label -->
 
-  <hr> -->
+        <form name="create" action="#" onsubmit="return validateForm()">
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" id="event_name" name="event_name">
+            <label class="mdl-textfield__label" for="event_name">Event name</label>
+          </div>
+          <div id="event"></div> <br>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <select id="category" name="category" class="custom-select" style="width:200px;">
+              <option value="">-Select a category-</option>
+ 	      <option value="sports">Sports</option>
+	      <option value="food">Meal</option>
+	      <option value="study">Study</option>
+	      <option value="game">Gaming</option>
+	      <option value="others">Others</option>
+            </select>
+          </div>
+
+          <!-- Tags based on different categories -->  
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label custom select tag" id="sports">
+            <select class="custom-select" style="width:200px;">
+              <option value = "">-Select a tag-</option>
+              <option value = "ball">Ball</option>
+              <option value = "run">Run</option>
+              <option value = "water">Water</option>
+            </select>
+          </div>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label custom select tag" id="food">
+            <select class="custom-select" style="width:200px;">
+              <option value = "">-Select a tag-</option>
+              <option value = "breakfast">Breakfast</option>
+              <option value = "lunch">Lunch</option>
+              <option value = "tea">Tea</option>
+              <option value = "dinner">Dinner</option>
+            </select>
+          </div>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label custom select tag" id="study">
+            <select class="custom-select" style="width:200px;">
+              <option value = "">-Select a tag-</option>
+              <option value = "language">Language</option>
+              <option value = "science">Science</option>
+              <option value = "business">Business</option>
+            </select>
+          </div>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label custom select tag" id="game">
+            <select class="custom-select" style="width:200px;">
+              <option value = "">-Select a tag-</option>
+              <option value = "rpg">RPG</option>
+              <option value = "moba">MOBA</option>
+              <option value = "rts">RTS</option>
+            </select>
+          </div><br>
+
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" id="venue">
+            <label class="mdl-textfield__label" for="venue">Venue</label>
+          </div> <br>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" id="date">
+            <label class="mdl-textfield__label" for="date">Date</label>
+          </div> <br>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" id="duration">
+            <label class="mdl-textfield__label" for="duration">Duration</label>
+          </div> <br>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" id="target">
+            <label class="mdl-textfield__label" for="target">Targets</label>
+          </div> <br>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" id="quota">
+            <label class="mdl-textfield__label" for="quota">Quota of participants</label>
+          </div> <br>
+          <div class="mdl-textfield mdl-js-textfield">
+            <textarea class="mdl-textfield__input" type="text" rows= "3" id="describe" ></textarea>
+            <label class="mdl-textfield__label" for="describe">Give more description here...</label>
+          </div> <br>
+        <input id="demo-show-toast" class="mdl-button mdl-js-button mdl-button--raised" type="submit" style="background-color: #FF6948" value="Create">
+        </form>
+
+
+          <!-- <div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
+            <div class="mdl-snackbar__text"></div>
+            <button class="mdl-snackbar__action" type="button"></button>
+          </div> -->
 
   <!-- Footer -->
   <footer>
@@ -139,7 +218,7 @@
               </a>
             </li>
           </ul>
-          <p class="copyright text-muted">Copyright &copy; Your Website 2019</p>
+          <p class="copyright text-muted">Copyright &copy; Friend Zone 2020</p>
         </div>
       </div>
     </div>
