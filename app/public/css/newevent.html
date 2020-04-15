@@ -48,7 +48,7 @@
 <body>
 
   <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
     <div class="container">
       <a class="navbar-brand" href="index.html">Start FriendZone</a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,10 +61,10 @@
             <a class="nav-link" href="index.html">Home</a>
           </li>
           <!-- need to change-->
-          <!-- need to change-->
           <li class="nav-item">
-            <a class="nav-link" href="account.html">Myself</a>
+            <a class="nav-link" href="Login.html">Sign In</a>
           </li>
+          <!-- need to change-->
           <li class="nav-item">
             <a class="nav-link" href="about.html">About</a>
           </li>
@@ -72,12 +72,25 @@
           <li class="nav-item">
             <a class="nav-link" href="contact.html">Contact</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="index.html">Sign Out</a>
-          </li>
-          </ul>
-            <!-- Right aligned menu below button -->            
+        </ul>
+        <!-- Right aligned menu below button -->
+        <button id="demo-menu-lower-right"
+        class="mdl-button mdl-js-button mdl-button--icon">
+          <i class="material-icons">more_vert</i>
+        </button>
+
+        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+    for="demo-menu-lower-right">
+          <a href="Myself.html" style="text-decoration: none;">
+            <li class="mdl-menu__item">Myself</li>
+          </a>
             
+          <a href="report.html" target="_blank" style="text-decoration: none;">
+            <li class="mdl-menu__item">Report User</li>
+          </a>
+
+          <li disabled class="mdl-menu__item">Sign Out</li>
+        </ul>
       </div>
     </div>
   </nav>
