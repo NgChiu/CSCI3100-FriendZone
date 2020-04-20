@@ -1,52 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-</head>
-<link rel="stylesheet" type="text/css" href="reg.css">
-<body>
-    <div style="text-align: center">
-        <form id="rg" action="http://127.0.0.1:3000/" method="POST">
-            <h2>Login and start using FriendZone!</h2>
-            <label>UserID: </label><br>
-            <input id=userid type="text" required> <br>
-            <label>Password: </label><br>
-            <input id=password type="password" required> <br>
-            <button type="button" id="okbtn" onclick="verify()" >Login</button>
-            <p>
-                Still not having a FriendZone account?
-                <a href="reg_page.html">Click me to register</a>
-            </p>
-        </form>
-    </div>
-    <script>
-        function verify() {
-            let userid = document.getElementById("userid").value;
-            let password = document.getElementById("password").value;
-            //let t = 0;
 
-            if (userid === "")
-                window.alert("UserID is empty!");
-            else if (password === "")
-                window.alert("Password is empty!");
-            /*else {
-                for (i = 0; i < account.number; i++) {
-                    let o_userid = account[i].userid;
-                    let o_password = account[i].password;
-                    if (userid === o_userid || password === o_password) {
-                        t = 1;
-                        break;
-                    }
-                }
-                if (t === 0)
-                    window.alert("UserID and/or password is incorrect!");
-                else {
-                    window.alert("Login successful!");
-                    location.replace("index.html");
-                }
-            }*/
-        }
+<head>
+    <!--myself-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="js/custom_select_newevent.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!--myself-->
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>FriendZone--Login</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- Custom styles for this template -->
+    <link href="css/clean-blog.min.css" rel="stylesheet">
+
+    <!-- Jquery for showing tags based on category-->
+    <script>
+        $(document).ready(function(){
+            $(".tag").hide();
+            $("#category").change(function(){
+                let targID  = $(this).val();
+                $(".tag").hide();
+                $('#'+targID).show();
+            })
+        });
     </script>
+
+</head>
+
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">Start FriendZone</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Home</a>
+                </li>
+                <!-- need to change-->
+                <li class="nav-item">
+                    <a class="nav-link" href="Login.html">Sign In</a>
+                </li>
+                <!-- need to change-->
+                <li class="nav-item">
+                    <a class="nav-link" href="about.html">About</a>
+                </li>
+                <!-- need to change-->
+                <li class="nav-item">
+                    <a class="nav-link" href="contact.html">Contact</a>
+                </li>
+            </ul>
+            <!-- Right aligned menu below button -->
+            <button id="demo-menu-lower-right"
+                    class="mdl-button mdl-js-button mdl-button--icon">
+                <i class="material-icons">more_vert</i>
+            </button>
+
+            <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+                for="demo-menu-lower-right">
+                <a href="Myself.html" style="text-decoration: none;">
+                    <li class="mdl-menu__item">Myself</li>
+                </a>
+
+                <a href="report.html" target="_blank" style="text-decoration: none;">
+                    <li class="mdl-menu__item">Report User</li>
+                </a>
+
+                <li disabled class="mdl-menu__item">Sign Out</li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Page Header -->
+<header class="masthead" style="background-image: url('img/newevent.png')">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="page-heading">
+                    <h1>Login</h1>
+                    <span class="subheading">Start Using FriendZone.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            <!-- Textfield with Floating Label -->
+            <form id="lg" action="/member/login" method="POST" onsubmit="return validateForm()">
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" id="UserID" required>
+                    <label class="mdl-textfield__label" for="UserID">UserID</label>
+                </div> <br>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="password" id="Password" required>
+                    <label class="mdl-textfield__label" for="Password">Password</label>
+                </div> <br>
+                <input id="demo-show-toast" class="mdl-button mdl-js-button mdl-button--raised" type="submit" style="background-color: #FF6948" value="OK">
+                <p>
+                    Still not having a FriendZone account?
+                    <a href="reg_page.html">Click me to register</a>
+                </p>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- <div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
+  <div class="mdl-snackbar__text"></div>
+  <button class="mdl-snackbar__action" type="button"></button>
+</div> -->
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <ul class="list-inline text-center">
+                    <li class="list-inline-item">
+                        <a href="#">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
+                </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="#">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                </span>
+                        </a>
+                    </li>
+                </ul>
+                <p class="copyright text-muted">Copyright &copy; FriendZone 2020</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Bootstrap core JavaScript -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Custom scripts for this template -->
+<script src="js/clean-blog.min.js"></script>
 </body>
-</html>
