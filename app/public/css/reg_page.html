@@ -114,7 +114,7 @@
     <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
             <!-- Textfield with Floating Label -->
-            <form id="rg" action="member/register" method="POST" onsubmit="return validateForm()">
+            <form id="rg" action="member/register" method="POST" onsubmit="return validateReg()">
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <input class="mdl-textfield__input" type="text" id="Username" required>
                     <label class="mdl-textfield__label" for="Username">Username</label>
@@ -140,7 +140,32 @@
         </div>
     </div>
 </div>
+<script>
+    function validateReg() {
+        let userid = document.getElementById("UserID").value;
+        let username = document.getElementById("Username").value;
+        let password = document.getElementById("Password").value;
+        let lineid = document.getElementById("LineID").value;
+        
 
+        if (userid === "") {
+            window.alert("UserID is empty!");
+            return false;
+        }
+        if (username === "") {
+            window.alert("Username is empty!");
+            return false;
+        }
+        if (password === "") {
+            window.alert("Password is empty!");
+            return false;
+        }
+        if (lineid === "") {
+            window.alert("LineID is empty!");
+            return false;
+        }
+    }
+</script>
 <!-- <div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
   <div class="mdl-snackbar__text"></div>
   <button class="mdl-snackbar__action" type="button"></button>
