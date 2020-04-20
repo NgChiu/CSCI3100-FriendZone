@@ -114,13 +114,13 @@
     <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
             <!-- Textfield with Floating Label -->
-            <form id="lg" action="/member/login" method="POST" onsubmit="return validateForm()">
+            <form name="loginform" id="lg" action="member/login" method="POST" onsubmit="return validateLogin()">
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" id="UserID" required>
+                    <input class="mdl-textfield__input" type="text" id="UserID">
                     <label class="mdl-textfield__label" for="UserID">UserID</label>
                 </div> <br>
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="password" id="Password" required>
+                    <input class="mdl-textfield__input" type="password" id="Password">
                     <label class="mdl-textfield__label" for="Password">Password</label>
                 </div> <br>
                 <input id="demo-show-toast" class="mdl-button mdl-js-button mdl-button--raised" type="submit" style="background-color: #FF6948" value="OK">
@@ -132,7 +132,21 @@
         </div>
     </div>
 </div>
+<script>
+    function validateLogin() {
+        let userid = document.getElementById("UserID").value;
+        let password = document.getElementById("Password").value;
 
+        if (userid === "") {
+            window.alert("UserID is empty!");
+            return false;
+        }
+        if (password === "") {
+            window.alert("Password is empty!");
+            return false;
+        }
+    }
+</script>
 <!-- <div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
   <div class="mdl-snackbar__text"></div>
   <button class="mdl-snackbar__action" type="button"></button>
