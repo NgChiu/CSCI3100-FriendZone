@@ -103,19 +103,19 @@
             <!-- Textfield with Floating Label -->
             <form id="rg" action="http://localhost:3000/catalog/member/register" method="POST" onsubmit="return validateReg()">
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" id="Username">
+                    <input class="mdl-textfield__input" type="text" id="Username" name="regUsername">
                     <label class="mdl-textfield__label" for="Username">Username</label>
                 </div> <br>
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" id="UserID">
+                    <input class="mdl-textfield__input" type="text" id="UserID" name="regUserID">
                     <label class="mdl-textfield__label" for="UserID">UserID (for login purpose)</label>
                 </div> <br>
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="password" id="Password">
+                    <input class="mdl-textfield__input" type="password" id="Password" name="regPassword">
                     <label class="mdl-textfield__label" for="Password">Password</label>
                 </div> <br>
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" id="LineID">
+                    <input class="mdl-textfield__input" type="text" id="LineID" name="regLineID">
                     <label class="mdl-textfield__label" for="LineID">LineID</label>
                 </div> <br>
                 <input id="demo-show-toast" class="mdl-button mdl-js-button mdl-button--raised" type="submit" style="background-color: #FF6948" value="OK">
@@ -203,4 +203,3 @@
 <script src="js/clean-blog.min.js"></script>
 </body>
 </html>
-
