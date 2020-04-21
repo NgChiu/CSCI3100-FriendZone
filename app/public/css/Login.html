@@ -29,19 +29,6 @@
 
     <!-- Custom styles for this template -->
     <link href="css/clean-blog.min.css" rel="stylesheet">
-
-    <!-- Jquery for showing tags based on category-->
-    <script>
-        $(document).ready(function(){
-            $(".tag").hide();
-            $("#category").change(function(){
-                let targID  = $(this).val();
-                $(".tag").hide();
-                $('#'+targID).show();
-            })
-        });
-    </script>
-
 </head>
 
 <body>
@@ -114,7 +101,7 @@
     <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
             <!-- Textfield with Floating Label -->
-            <form name="loginform" id="lg" action="member/login" method="POST" onsubmit="return validateLogin()">
+            <form name="loginform" id="lg" action="http://localhost:3000/catalog/member/register" method="POST" onsubmit="return validateLogin()">
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <input class="mdl-textfield__input" type="text" id="UserID">
                     <label class="mdl-textfield__label" for="UserID">UserID</label>
