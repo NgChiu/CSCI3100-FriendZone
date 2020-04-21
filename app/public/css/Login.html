@@ -101,13 +101,13 @@
     <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
             <!-- Textfield with Floating Label -->
-            <form name="loginform" id="lg" action="http://localhost:3000/catalog/member/register" method="POST" onsubmit="return validateLogin()">
+            <form name="loginform" id="lg" action="http://localhost:3000/catalog/member/Login" method="POST" onsubmit="return validateLogin()">
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" id="UserID">
+                    <input class="mdl-textfield__input" type="text" id="UserID" name="loginUserID">
                     <label class="mdl-textfield__label" for="UserID">UserID</label>
                 </div> <br>
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="password" id="Password">
+                    <input class="mdl-textfield__input" type="password" id="Password" name="loginPassword">
                     <label class="mdl-textfield__label" for="Password">Password</label>
                 </div> <br>
                 <input id="demo-show-toast" class="mdl-button mdl-js-button mdl-button--raised" type="submit" style="background-color: #FF6948" value="OK">
