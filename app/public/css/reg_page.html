@@ -29,19 +29,6 @@
 
     <!-- Custom styles for this template -->
     <link href="css/clean-blog.min.css" rel="stylesheet">
-
-    <!-- Jquery for showing tags based on category-->
-    <script>
-        $(document).ready(function(){
-            $(".tag").hide();
-            $("#category").change(function(){
-                let targID  = $(this).val();
-                $(".tag").hide();
-                $('#'+targID).show();
-            })
-        });
-    </script>
-
 </head>
 
 <body>
@@ -114,21 +101,21 @@
     <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
             <!-- Textfield with Floating Label -->
-            <form id="rg" action="member/register" method="POST" onsubmit="return validateReg()">
+            <form id="rg" action="http://localhost:3000/catalog/member/register" method="POST" onsubmit="return validateReg()">
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" id="Username" required>
+                    <input class="mdl-textfield__input" type="text" id="Username">
                     <label class="mdl-textfield__label" for="Username">Username</label>
                 </div> <br>
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" id="UserID" required>
+                    <input class="mdl-textfield__input" type="text" id="UserID">
                     <label class="mdl-textfield__label" for="UserID">UserID (for login purpose)</label>
                 </div> <br>
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="password" id="Password" required>
+                    <input class="mdl-textfield__input" type="password" id="Password">
                     <label class="mdl-textfield__label" for="Password">Password</label>
                 </div> <br>
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" id="LineID" required>
+                    <input class="mdl-textfield__input" type="text" id="LineID">
                     <label class="mdl-textfield__label" for="LineID">LineID</label>
                 </div> <br>
                 <input id="demo-show-toast" class="mdl-button mdl-js-button mdl-button--raised" type="submit" style="background-color: #FF6948" value="OK">
@@ -146,7 +133,7 @@
         let username = document.getElementById("Username").value;
         let password = document.getElementById("Password").value;
         let lineid = document.getElementById("LineID").value;
-        
+
 
         if (userid === "") {
             window.alert("UserID is empty!");
@@ -216,3 +203,4 @@
 <script src="js/clean-blog.min.js"></script>
 </body>
 </html>
+
