@@ -17,7 +17,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>FriendZone--Login</title>
+    <title>FriendZone--New Event</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -29,6 +29,10 @@
 
     <!-- Custom styles for this template -->
     <link href="css/clean-blog.min.css" rel="stylesheet">
+
+    <!-- Jquery for showing tags based on category-->
+
+
 </head>
 
 <body>
@@ -36,47 +40,10 @@
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
     <div class="container">
-        <a class="navbar-brand" href="index.html">Start FriendZone</a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            Menu
-            <i class="fas fa-bars"></i>
-        </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="index.html">Home</a>
-                </li>
-                <!-- need to change-->
-                <li class="nav-item">
-                    <a class="nav-link" href="Login.html">Sign In</a>
-                </li>
-                <!-- need to change-->
-                <li class="nav-item">
-                    <a class="nav-link" href="about.html">About</a>
-                </li>
-                <!-- need to change-->
-                <li class="nav-item">
-                    <a class="nav-link" href="contact.html">Contact</a>
-                </li>
-            </ul>
+
             <!-- Right aligned menu below button -->
-            <button id="demo-menu-lower-right"
-                    class="mdl-button mdl-js-button mdl-button--icon">
-                <i class="material-icons">more_vert</i>
-            </button>
 
-            <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
-                for="demo-menu-lower-right">
-                <a href="Myself.html" style="text-decoration: none;">
-                    <li class="mdl-menu__item">Myself</li>
-                </a>
-
-                <a href="report.html" target="_blank" style="text-decoration: none;">
-                    <li class="mdl-menu__item">Report User</li>
-                </a>
-
-                <li id="logoutbtn" class="mdl-menu__item">Sign Out</li>
-            </ul>
         </div>
     </div>
 </nav>
@@ -101,7 +68,7 @@
     <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
             <!-- Textfield with Floating Label -->
-            <form name="loginform" id="lg" action="http://localhost:3000/catalog/member/Login" method="POST" onsubmit="return validateLogin()">
+            <form name="loginform" id="lg" action="http://localhost:3000/catalog/member/Login" onsubmit="return validateLogin()">
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <input class="mdl-textfield__input" type="text" id="UserID" name="loginUserID">
                     <label class="mdl-textfield__label" for="UserID">UserID</label>
@@ -119,6 +86,7 @@
         </div>
     </div>
 </div>
+<script src="Logout.js"></script>
 <script>
     function validateLogin() {
         let userid = document.getElementById("UserID").value;
@@ -132,6 +100,16 @@
             window.alert("Password is empty!");
             return false;
         }
+        $.ajax({
+            type: "POST" ,
+            url: "http://localhost:3000/catalog/member/Login",
+            data: $("#lg").serialize(),
+            success: function(response) {
+                localStorage.setItem("token", response.Token);
+                window.location.href = "index.html";
+            }
+        });
+        return false;
     }
 </script>
 <!-- <div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
@@ -182,8 +160,5 @@
 
 <!-- Custom scripts for this template -->
 <script src="js/clean-blog.min.js"></script>
-    
-    
-    <script src="js/Logout.js"></script>
 </body>
 </html>
