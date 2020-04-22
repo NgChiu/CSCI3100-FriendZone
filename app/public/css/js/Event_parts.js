@@ -29,17 +29,24 @@ $("#update_btn").click(function(){
 
 
 
-//Create Event------------------------------------------------------------
+//Create Event--------------------------------------------------------------------------
 $( "#create" ).submit( function (){
 	//alert("created");
     var title = $.trim($('#event_name').val());
     var venue = $.trim($('#venue').val());
     var date = $.trim($('#date').val());
     var category = $.trim($('#category').val());
-    var dur = $.trim($('#duration').val());
+    var start = $.trim($('#start_time').val());
+    var end = $.trim($('#end_time').val());
     var tar = $.trim($('#target').val());
     var quota = $.trim($('#quota').val());
     var content = $.trim($('#describe').val());
+
+    		$.ajax({
+    			url: '/member/myself',
+    			type: 'GET',
+    			dataType: 'JSON',
+    		});
 
         	$.ajax({
     			url: '/post/create',
@@ -48,13 +55,17 @@ $( "#create" ).submit( function (){
     			data: JSON.stringify({
     				Title: title,
     				Category: category,
+    				Quota: quota,
+    				Content: content,
+    				StartTime: start,
+    				EndTime: end,
     				Date: date,
     				Venue: venue,
-    				Quota: quota,
-    				content: content
+    				NumberOfParticipants: 0,
+    				LineID: member.LineID
     			}),
     			success: function(data){
     				alert("Event Created!");
     			}
-    	        })
+    		})
 });
