@@ -5,7 +5,6 @@
   <!--myself-->
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
-  <link rel="stylesheet" href="css/style_newevent">
   <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
   <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
   <script src="js/custom_select_newevent.js"></script>
@@ -31,16 +30,27 @@
   <!-- Custom styles for this template -->
   <link href="css/clean-blog.min.css" rel="stylesheet">
   
-  <!-- Jquery for showing tags based on category-->
+  <script src="CheckLogin.js"></script>
   <script>
     $(document).ready(function(){
-      $(".tag").hide();
-      $("#category").change(function(){
-        var targID  = $(this).val();
-        $(".tag").hide();
-        $('#'+targID).show();
+      $(function() {
+        $.ajax({
+          url: "member/myself",
+          type: "GET",
+          datatype: "JSON",
+          success: function(member){
+            $("#member-UserID").html("UserID: "+ member.UserID);
+            $("#member-Username").html("Username: "+ member.Username);
+            $("#member-Password").html("Password: "+ member.Password);
+            $("#member-RPmark").html("RP mark: "+ member.RPmark);
+            $("#member-LineID").html("LineID: "+ member.LineID);
+            $("#member-CreatedPost").html("Created post: "+ member.CreatedPost);
+            $("#member-JoinedPost").html("Joined post: "+ member.JoinedPost);
+          }
         })
+      })
     });
+
   </script>
 
 </head>
@@ -89,7 +99,7 @@
             <li class="mdl-menu__item">Report User</li>
           </a>
 
-          <li id="logoutbtn" class="mdl-menu__item">Sign Out</li>
+          <li class="mdl-menu__item" id="logoutbtn">Sign Out</li>
         </ul>
       </div>
     </div>
@@ -114,38 +124,23 @@
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
         <!-- Textfield with Floating Label -->
-        <form>
-            <strong>Username: </strong><br>
-            <input id=username type="text" required> <br>
-            <strong>UserID: </strong><br>
-            <input id=userid type="text" required> <br>
-            <strong>Gender: </strong><br>
-            <input type="radio" id="male" name="gender" value="male">
-            <label for="male">Male</label><br>
-            <input type="radio" id="female" name="gender" value="female">
-            <label for="female">Female</label><br>
-            <input type="radio" id="other" name="gender" value="other">
-            <label for="other">Other</label><br>
-            <strong>Interest: </strong><br>
-            <input type="checkbox" id="sports" >
-            <label for="Sports"> Sports</label><br>
-            <input type="checkbox" id="eating" >
-            <label for="Eating"> Eating</label><br>
-            <input type="checkbox" id="vehicle3" >
-            <label for="Study"> Study</label><br>
-            <input type="checkbox" id="gaming">
-            <label for="Gaming"> Gaming</label><br><br>
-            <input id="demo-show-toast" class="mdl-button mdl-js-button mdl-button--raised" type="submit" style="background-color: #FF6948" value="Comfirm Edit">
-        </form>
-
-
-
-
+        <div id="member-UserID">1</div>
+        <div id="member-Username">2</div>
+        <div id="member-Password">3</div>
+        <div id="member-RPmark">4</div>
+        <div id="member-LineID">5</div>
+        <div id="member-JoinedPost">6</div>
+        <button id="quit_event" class="mdl-button mdl-js-button mdl-button--raised" style="background-color: #90a1b2; color: white">Quit</button>
+        <div id="member-CreatedPost">7</div>
+        <button id="delete_event" class="mdl-button mdl-js-button mdl-button--raised" style="background-color: #90a1b2; color: white">Delete</button>
+      </div>
+    </div>
+ </div>
+  <script src="Logout.js"></script>
           <!-- <div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
             <div class="mdl-snackbar__text"></div>
             <button class="mdl-snackbar__action" type="button"></button>
           </div> -->
-
   <!-- Footer -->
   <footer>
     <div class="container">
@@ -177,7 +172,7 @@
               </a>
             </li>
           </ul>
-          <p class="copyright text-muted">Copyright &copy; Friend Zone 2020</p>
+          <p class="copyright text-muted">Copyright &copy; FriendZone 2020</p>
         </div>
       </div>
     </div>
@@ -189,9 +184,6 @@
 
   <!-- Custom scripts for this template -->
   <script src="js/clean-blog.min.js"></script>
-        
-        <script src="js/Logout.js"></script>
 
 </body>
-
 </html>
