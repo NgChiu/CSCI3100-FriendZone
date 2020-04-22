@@ -103,14 +103,28 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
-        <!--myself-->
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent " onclick="document.location = 'NewEvent.html'" >
+                   
+                <div id="events"></div>
+          <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent " onclick="document.location = 'NewEvent.html'" >
           <i class="material-icons">add</i>
           Create Event
         </button>
-        <hr>
-        <!--myself-->
-        <div class="post-preview">
+        <input type="button" name="update_btn" id="update_btn" value="Update Events" class="mdl-button mdl-js-button mdl-button--raised" type="button" style="background-color: #FF6948; float: right;">
+        <label for="category"></label><select id="category" name="category" class="custom-select" style="width:200px; float: right;">
+                    <option value="">-Show ALL-</option>
+                    <option value="sports">Sports</option>
+                    <option value="food">Meal</option>
+                    <option value="study">Study</option>
+                    <option value="game">Gaming</option>
+                    <option value="others">Others</option>
+                </select><hr>
+        <div id="post_display">
+          <strong>NOT YET UPDATED...</strong> <br>
+          <strong>Please click "UPDATE EVENTS".</strong>
+        </div>
+        
+
+<!--       <div class="post-preview">
           <a href="post.html">
             <h2 class="post-title">
               Man must explore, and this is exploration at its greatest
@@ -123,56 +137,10 @@
             <a href="#">Start Bootstrap</a>
             on September 24, 2019</p>
         </div>
-        <hr>
-        <div class="post-preview">
-          <a href="post.html">
-            <h2 class="post-title">
-              I believe every human has a finite number of heartbeats. I don't intend to waste any of mine.
-            </h2>
-          </a>
-          <p class="post-meta">Posted by
-            <a href="#">Start Bootstrap</a>
-            on September 18, 2019</p>
-        </div>
-        <hr>
-        <div class="post-preview">
-          <a href="post.html">
-            <h2 class="post-title">
-              Science has not yet mastered prophecy
-            </h2>
-            <h3 class="post-subtitle">
-              We predict too much for the next year and yet far too little for the next ten.
-            </h3>
-          </a>
-          <p class="post-meta">Posted by
-            <a href="#">Start Bootstrap</a>
-            on August 24, 2019</p>
-        </div>
-        <hr>
-        <div class="post-preview">
-          <a href="post.html">
-            <h2 class="post-title">
-              Failure is not an option
-            </h2>
-            <h3 class="post-subtitle">
-              Many say exploration is part of our destiny, but it’s actually our duty to future generations.
-            </h3>
-          </a>
-          <p class="post-meta">Posted by
-            <a href="#">Start Bootstrap</a>
-            on July 8, 2019</p>
-        </div>
-        <hr>
-        <!-- Pager -->
-        <div class="clearfix">
-          <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
-
-        </div>
+ -->
       </div>
     </div>
   </div>
-
-  <hr>
 
 
 
