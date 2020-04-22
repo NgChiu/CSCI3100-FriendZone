@@ -51,7 +51,7 @@ $( "#create" ).submit( function (){
         	$.ajax({
     			url: '/post/create',
     			type: 'POST',
-    			dataType: 'json'.
+    			dataType: 'json',
     			data: JSON.stringify({
     				Title: title,
     				Category: category,
