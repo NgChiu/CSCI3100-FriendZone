@@ -56,5 +56,5 @@ $( "#create" ).submit( function (){
     		success: function(data){
     			alert("Event Created!");
     		}
-    	});
+    	})
 });
