@@ -1,0 +1,4 @@
+{
+  "mongoURI": "mongodb+srv://FriendZone:csci3100@cluster0-si1k7.mongodb.net/test",
+  "jwtSecret": "SecretKey"
+}
