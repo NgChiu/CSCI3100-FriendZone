@@ -42,19 +42,19 @@ $( "#create" ).submit( function (){
     var content = $.trim($('#describe').val());
 
         	$.ajax({
-    		url: '/post/create',
-    		type: 'POST',
-    		dataType: 'json'.
-    		data: JSON.stringify({
-    			Title: title,
-    			Category: category,
-    			Date: date,
-    			Venue: venue,
-    			Quota: quota,
-    			content: content
-    		}),
-    		success: function(data){
-    			alert("Event Created!");
-    		}
-    	})
+    			url: '/post/create',
+    			type: 'POST',
+    			dataType: 'json'.
+    			data: JSON.stringify({
+    				Title: title,
+    				Category: category,
+    				Date: date,
+    				Venue: venue,
+    				Quota: quota,
+    				content: content
+    			}),
+    			success: function(data){
+    				alert("Event Created!");
+    			}
+    	        })
 });
