@@ -37,7 +37,11 @@ $("#update_btn").click(function(){
 			type: "POST",
 			dataType: "json",
 			data:{
-				postID: post_ID
+				postID: post_ID,
+				token: localStorage.getItem("token")
+			}
+			success: function(response){
+				alert("Joined!");
 			}
 		});
 
