@@ -6,23 +6,33 @@ $("#update_btn").click(function(){
 	$("#post_display").empty();
 	let x = document.getElementById("category").value;
 	if (x === ""){
-		$.getJSON("http://localhost:3000/catalog/post",function(data) {
-			for (var i = 0; i < data.length ; i++) {
-				var input = $('<input type="button" name="join_event" id="' + data[i]._id + '" value="Join" class="mdl-button mdl-js-button mdl-button--raised" style="background-color: #48AAAD; float: right;">');
-				$("#post_display").prepend("<h2>" + data[i].Title + "</h2> <p>Category: " + data[i].category + "</p> <p>Date:" + data[i].Date + " </p> <p>Venue: " + data[i].Venue + "</p> <p>Quota: " + data[i].Quota + "</p> <p>Number of participant(s): " + data[i].NumberOfParticipants + "</p><p>Detail: " + data[i].content + "</p><hr>");
-				$("#post_display").prepend(input);
-			}
-		});
-	}
-	else{
-		$.getJSON("http://localhost:3000/catalog/post/"+x,function(data) { 
-			for (var i = 0; i < data.length ; i++) {
-				var input = $('<input type="button" name="join_event" id="' + data[i]._id + '" value="Join" class="mdl-button mdl-js-button mdl-button--raised" style="background-color: #48AAAD; float: right;">');
-				$("#post_display").prepend("<h2>" + data[i].Title + "</h2> <p>Category: " + data[i].category + "</p> <p>Date:" + data[i].Date + " </p> <p>Venue: " + data[i].Venue + "</p> <p>Quota: " + data[i].Quota + "</p> <p>Number of participant(s): " + data[i].NumberOfParticipants + "</p><p>Detail: " + data[i].content + "</p><hr>");
-				$("#post_display").prepend(input);
-			}
-		});
-	}
+        $.ajax({
+            url: 'http://localhost:3000/catalog/post',
+            type: 'GET',
+            dataType: 'json',
+            success: function(data){
+                for (var i = 0; i < data.length ; i++) {
+                    var input = $('<input type="button" name="join_event" id="' + data[i]._id + '" value="Join" class="mdl-button mdl-js-button mdl-button--raised" style="background-color: #48AAAD; float: right;">');
+                    $("#post_display").prepend("<h2>" + data[i].Title + "</h2> <p>Category: " + data[i].category + "</p> <p>Date:" + data[i].Date + " </p> <p>Venue: " + data[i].Venue + "</p> <p>Quota: " + data[i].Quota + "</p> <p>Number of participant(s): " + data[i].NumberOfParticipants + "</p><p>Detail: " + data[i].content + "</p><hr>");
+                    $("#post_display").prepend(input);
+                }
+            }
+        })
+    }
+    else{
+        $.ajax({
+            url: 'http://localhost:3000/catalog/post/'+ x,
+            type: 'GET',
+            dataType: 'json',
+            success: function(data){
+                for (var i = 0; i < data.length ; i++) {
+                    var input = $('<input type="button" name="join_event" id="' + data[i]._id + '" value="Join" class="mdl-button mdl-js-button mdl-button--raised" style="background-color: #48AAAD; float: right;">');
+                    $("#post_display").prepend("<h2>" + data[i].Title + "</h2> <p>Category: " + data[i].category + "</p> <p>Date:" + data[i].Date + " </p> <p>Venue: " + data[i].Venue + "</p> <p>Quota: " + data[i].Quota + "</p> <p>Number of participant(s): " + data[i].NumberOfParticipants + "</p><p>Detail: " + data[i].content + "</p><hr>");
+                    $("#post_display").prepend(input);
+                }
+            }
+        })
+    }
 	
 	
 	//join event
