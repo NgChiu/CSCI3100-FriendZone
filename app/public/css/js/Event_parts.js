@@ -28,6 +28,7 @@ $("#update_btn").click(function(){
 	//join event
 	$("input[name= 'join_event']").click(function (){
 		var post_ID = this.id;
+		alert("The post id is "+ post_ID);
 		var participant;
 		$.getJSON("http://localhost:3000/catalog/post/"+ post_ID, function(event){
 			participant = event.NumberOfParticipants;
@@ -37,9 +38,9 @@ $("#update_btn").click(function(){
     			url: 'http://localhost:3000/catalog/post/join/'+ post_ID,
     			type: 'POST',
     			dataType: 'json',
-    			data: JSON.stringify({
+    			data: {
     				NumberOfParticipants: participant + 1
-    			}),
+    			},
     			// .done(function (html){
     			// 	alert("Done");
     			// });
@@ -53,12 +54,12 @@ $("#update_btn").click(function(){
     						url: '/member/myself',
     						type: 'POST',
     						dataType: 'json',
-    						data: JSON.stringify({
+    						data: {
     							Username: member.Username,
     							UserID: member.UserID,
     							RPmark: member.RPmark,
     							JoinedPost: post_ID
-    						}),
+    						},
     					});
     				})
     			
