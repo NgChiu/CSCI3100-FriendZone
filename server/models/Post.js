@@ -15,7 +15,7 @@ const PostSchema = new Schema({
 	EndTime: { type: String, required: true },
 	Date: { type: String, required: true },
 	Venue: { type: String, required: true },
-	JoinedUsername: { type: String },
+	//JoinedUsername: { type: String },
 	NumberOfParticipants: { type: Number, required: true },
 	LineID: { type: String, required: true }
 });
