@@ -30,7 +30,7 @@ exports.member_login = async function (req, res) {
 		if(!Token) throw Error('No Valid Token is created');
 
 		res.status(200).json({Token, currentUser});
-		console.log(currentUser);
+		console.log({Token,currentUser});
 	} catch (e) {
 		res.status(404).send(e.message);
 	}
