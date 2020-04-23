@@ -75,7 +75,7 @@ $( "#create" ).submit( function (){
                     StartTime: start,
                     EndTime: end,
                     Date: date,
-                    Venue: venue
+                    Venue: venue,
 		    token: localStorage.getItem("token")
 
                 },
