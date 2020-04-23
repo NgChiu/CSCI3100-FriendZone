@@ -12,7 +12,6 @@ $("#update_btn").click(function(){
 				$("#post_display").prepend("<h2>" + data[i].Title + "</h2> <p>Category: " + data[i].Category + "</p> <p>Date:" + data[i].Date + " </p> <p>Venue: " + data[i].Venue + "</p> <p>Quota: " + data[i].Quota + "</p> <p>Number of participant(s): " + data[i].NumberOfParticipants + "</p><p>Detail: " + data[i].Content + "</p><hr>");
 				$("#post_display").prepend(input);
 			}
-			$("#post_display").append("<script src='js/join_event'> </script>");
 		});
 	}
 	else{
@@ -22,55 +21,28 @@ $("#update_btn").click(function(){
 				$("#post_display").prepend("<h2>" + data[i].Title + "</h2> <p>Category: " + data[i].Category + "</p> <p>Date:" + data[i].Date + " </p> <p>Venue: " + data[i].Venue + "</p> <p>Quota: " + data[i].Quota + "</p> <p>Number of participant(s): " + data[i].NumberOfParticipants + "</p><p>Detail: " + data[i].Content + "</p><hr>");
 				$("#post_display").prepend(input);
 			}
-			$("#post_display").append("<script src='js/join_event'> </script>");
 		});
 	}
 	
 	
 	//join event
-	/*$("input[name= 'join_event']").click(function (){
+	$("input[name= 'join_event']").click(function (){
+
 		var post_ID = this.id;
 		alert("The post id is "+ post_ID);
-		var participant;
-		$.getJSON("http://localhost:3000/catalog/post/"+ post_ID, function(event){
-			participant = event.NumberOfParticipants;
-		})
-
-    		$.ajax({
-    			url: 'http://localhost:3000/catalog/post/join/'+ post_ID,
-    			type: 'POST',
-    			dataType: 'json',
-    			data: {
-    				NumberOfParticipants: participant + 1
-    			},
-    			// .done(function (html){
-    			// 	alert("Done");
-    			// });
-    			success: function(data){
-    				$.getJSON("http://localhost:3000/catalog/post/join/"+ post_ID, function(host){
-    					alert("Joined!");
-    					alert("Please contact the host via Line: "+ host.LineID);
-    				});
-    				$.getJSON("http://localhost:3000/catalog/member/myself", function(member){
-    					$.ajax({
-    						url: '/member/myself',
-    						type: 'POST',
-    						dataType: 'json',
-    						data: {
-    							Username: member.Username,
-    							UserID: member.UserID,
-    							RPmark: member.RPmark,
-    							JoinedPost: post_ID
-    						},
-    					});
-    				})
-    			
-
-    			}
-    		});
 
 
-	});*/
+		$.ajax({
+			url: "http://localhost:3000/catalog/post/join",
+			type: "POST",
+			dataType: "json",
+			data:{
+				postID: post_ID
+			}
+		});
+
+
+	});
 });
 
 
