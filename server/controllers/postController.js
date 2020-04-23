@@ -125,7 +125,7 @@ exports.post_join = async function (req, res){
 		//If user already joined that post
 		// if(currentUser.JoinedPost.toString() === currentPost._id.toString()) throw Error('Already joined post');
 		//If user already joined post
-		if(currentUser.JoinedPost) throw Error('Exceed Join Limit');
+		if(!currentUser.JoinedPost) throw Error('Exceed Join Limit');
 
 		currentPost.NumberOfParticipants = currentPost.NumberOfParticipants + 1;
 		const postResult = await currentPost.save();
