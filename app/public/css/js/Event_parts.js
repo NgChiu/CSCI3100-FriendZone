@@ -2,7 +2,7 @@
 
 //Display event--------------------------------------------------
 $("#update_btn").click(function(){
-	//alert('Events Updated!');
+	alert('Events Updated!');
 	$("#post_display").empty();
 	let x = document.getElementById("category").value;
 	if (x === ""){
@@ -23,8 +23,42 @@ $("#update_btn").click(function(){
 			}
 		});
 	}
+	
+	
+	//join event
+	$("input[name= 'join_event']").click(function (){
+		var post_ID = this.id;
+		$.getJSON("/post/"+ post_ID, function(event){
+			var participant = event.NumberOfParticipants;
+		})
 
+    		$.ajax({
+    			url: '/post/join/'+ post_ID,
+    			type: 'POST',
+    			dataType: 'json',
+    			data: JSON.stringify({
+    				NumberOfParticipants: participant + 1
+    			}),
+    			// .done(function (html){
+    			// 	alert("Done");
+    			// });
+    			success: function(data){
+    				$.getJSON("/post/join/"+ post_ID, function(data){
+    					alert("Joined!");
+    					alert("Please contact the host vai Line: "+ data.LineID);
+    				});
+    				$.ajax({
+    					url: '/member/myself',
+    					type: 'POST',
+    					dataType: 'json',
+    					data: JSON.stringify({
+    						JoinedPost: post_ID
+    					}),
+    				});
 
+    			}
+    		});
+	});
 });
 
 
