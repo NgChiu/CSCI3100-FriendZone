@@ -28,8 +28,9 @@ $("#update_btn").click(function(){
 	//join event
 	$("input[name= 'join_event']").click(function (){
 		var post_ID = this.id;
+		var participant;
 		$.getJSON("/post/"+ post_ID, function(event){
-			var participant = event.NumberOfParticipants;
+			participant = event.NumberOfParticipants;
 		})
 
     		$.ajax({
@@ -83,9 +84,9 @@ $( "#create" ).submit( function (){
     var tar = $.trim($('#target').val());
     var quota = $.trim($('#quota').val());
     var content = $.trim($('#describe').val());
-
+    var line_ID;
     		$.getJSON("/member/myself", function(member){
-			var line_ID = member.LineID;
+			line_ID = member.LineID;
 		})
 
         	$.ajax({
