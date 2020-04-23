@@ -90,3 +90,45 @@ $( "#create" ).submit( function (){
 		}
             })
 });
+
+
+//Quit Event-------------------------------------------------------------
+$("#quit_event").click(function(){
+
+	$.ajax({
+		url: 'http://localhost:3000/catalog/post/quit',
+		type: 'POST',
+		dataType: 'json',
+		data: {
+			token: localStorage.getItem("token")
+		},
+		success: function(response){
+			alert("You have quit the event.");
+		},
+		error: function(response){
+			alert("Fail to quit.");
+		}
+	});
+});
+
+
+
+//Delete Event------------------------------------------------------------
+$("#delete_event").click(function(){
+
+	$.ajax({
+		url: 'http://localhost:3000/catalog/post/delete',
+		type: 'POST',
+		dataType: 'json',
+		data: {
+			token: localStorage.getItem("token")
+		},
+		success: function(response){
+			alert("You have dismissed the event.");
+		},
+		error: function(response){
+			alert("Fail to delete.");
+		}
+	});
+
+});
