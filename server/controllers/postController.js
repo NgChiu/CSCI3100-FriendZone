@@ -35,8 +35,8 @@ exports.post_create = async function (req, res) {
 		// const input_date = "20200422";
 		// const input_venue = "My Home";
 		// const input_content = "Optional";
-		console.log(req.body);
-		console.log(req.user.id);
+		// console.log(req.body);
+		// console.log(req.user.id);
 
 		const input_title = req.body.Title;
 		const input_category = req.body.Category;
@@ -63,9 +63,9 @@ exports.post_create = async function (req, res) {
 		//get current user by decoding the token (token should be decoded into req.user)
 		const currentUser = await Member.findOne({_id: req.user.id});
 		if(!currentUser) throw Error('Post Create Failed. [Error occurred when converting token]');
-		console.log(currentUser);
+		// console.log(currentUser);
 		//If user already created post
-		console.log(currentUser.CreatedPost);
+		// console.log(currentUser.CreatedPost);
 		if(currentUser.CreatedPost) throw Error('Exceed created limit');
 		const input_lineID = currentUser.LineID;
 
@@ -97,8 +97,8 @@ exports.post_create = async function (req, res) {
 		const genreResult = await newGenre.save();
 		if(!newGenre || !genreResult) throw Error('Unexpected Error when updating genre database');
 
-		res.status(200).json(newPost);
 		console.log(newPost);
+		res.status(200).json(newPost);
 	} catch (e){
 		res.status(404).send(e.message);
 		console.log(e.message);
@@ -121,7 +121,7 @@ exports.post_join = async function (req, res){
 		//If post full
 		if(currentPost.Quota - currentPost.NumberOfParticipants == 0) throw Error('Post Fulled');
 		//If user already created that post
-		if(currentUser.CreatedPost.toString() === currentPost._id.toString()) throw Error('Already created post');
+		// if(currentUser.CreatedPost.toString() === currentPost._id.toString()) throw Error('Already created post');
 		//If user already joined that post
 		// if(currentUser.JoinedPost.toString() === currentPost._id.toString()) throw Error('Already joined post');
 		//If user already joined post
@@ -147,6 +147,7 @@ exports.post_join = async function (req, res){
 		res.status(200).send(currentPost);
 	} catch (e){
 		res.status(404).send(e.message);
+		console.log(e.message);
 	}
 }
 
