@@ -5,5 +5,5 @@ $(function() {
         else
             localStorage.removeItem("token");
         location.replace("Login.html");
-    })
+    });
 });
