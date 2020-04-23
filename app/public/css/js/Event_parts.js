@@ -6,7 +6,7 @@ $("#update_btn").click(function(){
 	$("#post_display").empty();
 	let x = document.getElementById("category").value;
 	if (x === ""){
-		$.getJSON("/post",function(data) {
+		$.getJSON("http://localhost:3000/catalog/post",function(data) {
 			for (var i = 0; i < data.length ; i++) {
 				var input = $('<input type="button" name="join_event" id="' + data[i]._id + '" value="Join" class="mdl-button mdl-js-button mdl-button--raised" style="background-color: #48AAAD; float: right;">');
 				$("#post_display").prepend("<h2>" + data[i].Title + "</h2> <p>Category: " + data[i].category + "</p> <p>Date:" + data[i].Date + " </p> <p>Venue: " + data[i].Venue + "</p> <p>Quota: " + data[i].Quota + "</p> <p>Number of participant(s): " + data[i].NumberOfParticipants + "</p><p>Detail: " + data[i].content + "</p><hr>");
@@ -15,7 +15,7 @@ $("#update_btn").click(function(){
 		});
 	}
 	else{
-		$.getJSON("/post/"+x,function(data) { 
+		$.getJSON("http://localhost:3000/catalog/post/"+x,function(data) { 
 			for (var i = 0; i < data.length ; i++) {
 				var input = $('<input type="button" name="join_event" id="' + data[i]._id + '" value="Join" class="mdl-button mdl-js-button mdl-button--raised" style="background-color: #48AAAD; float: right;">');
 				$("#post_display").prepend("<h2>" + data[i].Title + "</h2> <p>Category: " + data[i].category + "</p> <p>Date:" + data[i].Date + " </p> <p>Venue: " + data[i].Venue + "</p> <p>Quota: " + data[i].Quota + "</p> <p>Number of participant(s): " + data[i].NumberOfParticipants + "</p><p>Detail: " + data[i].content + "</p><hr>");
@@ -29,12 +29,12 @@ $("#update_btn").click(function(){
 	$("input[name= 'join_event']").click(function (){
 		var post_ID = this.id;
 		var participant;
-		$.getJSON("/post/"+ post_ID, function(event){
+		$.getJSON("http://localhost:3000/catalog/post/"+ post_ID, function(event){
 			participant = event.NumberOfParticipants;
 		})
 
     		$.ajax({
-    			url: '/post/join/'+ post_ID,
+    			url: 'http://localhost:3000/catalog/post/join/'+ post_ID,
     			type: 'POST',
     			dataType: 'json',
     			data: JSON.stringify({
@@ -44,11 +44,11 @@ $("#update_btn").click(function(){
     			// 	alert("Done");
     			// });
     			success: function(data){
-    				$.getJSON("/post/join/"+ post_ID, function(host){
+    				$.getJSON("http://localhost:3000/catalog/post/join/"+ post_ID, function(host){
     					alert("Joined!");
     					alert("Please contact the host via Line: "+ host.LineID);
     				});
-    				$.getJSON("member/myself", function(member){
+    				$.getJSON("http://localhost:3000/catalog/member/myself", function(member){
     					$.ajax({
     						url: '/member/myself',
     						type: 'POST',
@@ -85,12 +85,12 @@ $( "#create" ).submit( function (){
     var quota = $.trim($('#quota').val());
     var content = $.trim($('#describe').val());
     var line_ID;
-    		$.getJSON("/member/myself", function(member){
+    		$.getJSON("http://localhost:3000/catalog/member/myself", function(member){
 			line_ID = member.LineID;
 		})
 
         	$.ajax({
-    			url: '/post/create',
+    			url: 'http://localhost:3000/catalog/post/create',
     			type: 'POST',
     			dataType: 'json',
     			data: JSON.stringify({
