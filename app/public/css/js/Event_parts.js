@@ -13,7 +13,7 @@ function JoinEvent(inputbtn){
 				token: localStorage.getItem("token")
 			},
 			success: function(response){
-				alert("You have joined the event!");
+				alert("You have joined the event! \n Please contact the host via Line to have further details.\n Line: "+ inputbtn.LineID");
 			},
 			error: function(response){
 				alert("Fail to join!");
