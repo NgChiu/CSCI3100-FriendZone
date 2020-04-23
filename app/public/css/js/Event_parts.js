@@ -12,6 +12,7 @@ $("#update_btn").click(function(){
 				$("#post_display").prepend("<h2>" + data[i].Title + "</h2> <p>Category: " + data[i].category + "</p> <p>Date:" + data[i].Date + " </p> <p>Venue: " + data[i].Venue + "</p> <p>Quota: " + data[i].Quota + "</p> <p>Number of participant(s): " + data[i].NumberOfParticipants + "</p><p>Detail: " + data[i].content + "</p><hr>");
 				$("#post_display").prepend(input);
 			}
+			$("#post_display").append("<script src='js/join_event'> </script>");
 		});
 	}
 	else{
@@ -21,12 +22,13 @@ $("#update_btn").click(function(){
 				$("#post_display").prepend("<h2>" + data[i].Title + "</h2> <p>Category: " + data[i].category + "</p> <p>Date:" + data[i].Date + " </p> <p>Venue: " + data[i].Venue + "</p> <p>Quota: " + data[i].Quota + "</p> <p>Number of participant(s): " + data[i].NumberOfParticipants + "</p><p>Detail: " + data[i].content + "</p><hr>");
 				$("#post_display").prepend(input);
 			}
+			$("#post_display").append("<script src='js/join_event'> </script>");
 		});
 	}
 	
 	
 	//join event
-	$("input[name= 'join_event']").click(function (){
+	/*$("input[name= 'join_event']").click(function (){
 		var post_ID = this.id;
 		alert("The post id is "+ post_ID);
 		var participant;
@@ -68,7 +70,7 @@ $("#update_btn").click(function(){
     		});
 
 
-	});
+	});*/
 });
 
 
