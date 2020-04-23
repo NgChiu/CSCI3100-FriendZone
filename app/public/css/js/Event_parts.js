@@ -46,7 +46,7 @@ $("#update_btn").click(function(){
     			success: function(data){
     				$.getJSON("/post/join/"+ post_ID, function(host){
     					alert("Joined!");
-    					alert("Please contact the host vai Line: "+ host.LineID);
+    					alert("Please contact the host via Line: "+ host.LineID);
     				});
     				$.getJSON("member/myself", function(member){
     					$.ajax({
