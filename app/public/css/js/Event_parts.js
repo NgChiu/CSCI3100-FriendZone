@@ -5,9 +5,9 @@ function JoinEvent(inputbtn){
 	var post_ID = inputbtn.id;
 	//alert("The post id is "+ post_ID);
 	$.ajax({
-			url: "http://localhost:3000/catalog/post/join",
-			type: "POST",
-			dataType: "json",
+			url: 'http://localhost:3000/catalog/post/join',
+			type: 'POST',
+			dataType: 'json',
 			data:{
 				postID: post_ID,
 				token: localStorage.getItem("token")
