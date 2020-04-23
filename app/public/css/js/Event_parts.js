@@ -84,11 +84,9 @@ $( "#create" ).submit( function (){
     var quota = $.trim($('#quota').val());
     var content = $.trim($('#describe').val());
 
-    		$.ajax({
-    			url: '/member/myself',
-    			type: 'GET',
-    			dataType: 'JSON',
-    		});
+    		$.getJSON("/member/myself", function(member){
+			var line_ID = member.LineID;
+		})
 
         	$.ajax({
     			url: '/post/create',
@@ -104,7 +102,7 @@ $( "#create" ).submit( function (){
     				Date: date,
     				Venue: venue,
     				NumberOfParticipants: 0,
-    				LineID: member.LineID
+    				LineID: line_ID
     			}),
     			success: function(data){
     				alert("Event Created!");
