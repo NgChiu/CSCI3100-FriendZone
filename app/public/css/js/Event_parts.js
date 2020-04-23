@@ -96,7 +96,7 @@ $( "#create" ).submit( function (){
                 url: 'http://localhost:3000/catalog/post/create',
                 type: 'POST',
                 dataType: 'json',
-                data: JSON.stringify({
+                data: {
                     Title: title,
                     Category: category,
                     Quota: quota,
@@ -104,7 +104,7 @@ $( "#create" ).submit( function (){
                     EndTime: end,
                     Date: date,
                     Venue: venue
-                }),
+                },
                 success: function(data){
                     alert("Event Created!");
                 }
