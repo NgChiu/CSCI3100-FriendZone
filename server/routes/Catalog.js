@@ -7,14 +7,18 @@ var postController = require('../controllers/postController');
 var memberController = require('../controllers/memberController');
 
 
-router.get('/post', auth, postController.post_list);
+router.get('/post', postController.post_list);
 
-router.get('/post/create', postController.post_create);
+router.post('/post/create', auth, postController.post_create);
+
+router.get('/post/join', postController.post_join);
+
+router.get('/post/delete', postController.post_delete);
 
 router.post('/member/login', memberController.member_login);
 
 router.post('/member/register',memberController.member_register);
 
-router.get('/member/myself',auth, memberController.myself);
+router.post('/member/myself',auth, memberController.myself);
 
 module.exports = router;
