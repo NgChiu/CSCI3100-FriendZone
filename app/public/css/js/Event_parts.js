@@ -47,17 +47,25 @@ $("#update_btn").click(function(){
     					alert("Joined!");
     					alert("Please contact the host vai Line: "+ host.LineID);
     				});
-    				$.ajax({
-    					url: '/member/myself',
-    					type: 'POST',
-    					dataType: 'json',
-    					data: JSON.stringify({
-    						JoinedPost: post_ID
-    					}),
-    				});
+    				$.getJSON("member/myself", function(member){
+    					$.ajax({
+    						url: '/member/myself',
+    						type: 'POST',
+    						dataType: 'json',
+    						data: JSON.stringify({
+    							Username: member.Username,
+    							UserID: member.UserID,
+    							RPmark: member.RPmark,
+    							JoinedPost: post_ID
+    						}),
+    					});
+    				})
+    			
 
     			}
     		});
+
+
 	});
 });
 
