@@ -76,6 +76,8 @@ $( "#create" ).submit( function (){
                     EndTime: end,
                     Date: date,
                     Venue: venue
+		    token: localStorage.getItem("token")
+
                 },
                 success: function(data){
                     alert("Event Created!");
