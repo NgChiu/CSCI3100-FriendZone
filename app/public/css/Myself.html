@@ -35,9 +35,12 @@
     $(document).ready(function(){
       $(function() {
         $.ajax({
-          url: "member/myself",
-          type: "GET",
+          url: "http://localhost:3000/catalog/member/myself",
+          type: "POST",
           datatype: "JSON",
+          data: {
+            token: localStorage.getItem("token")
+          },
           success: function(member){
             $("#member-UserID").html("UserID: "+ member.UserID);
             $("#member-Username").html("Username: "+ member.Username);
