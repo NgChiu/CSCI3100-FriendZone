@@ -103,6 +103,15 @@
             window.alert("LineID is empty!");
             return false;
         }
+        $.ajax({
+        type: "POST" ,
+        url: "http://localhost:3000/catalog/member/register",
+        data: $("#rg").serialize(),
+        success: function() {
+            window.location.href = "Login.html";
+        }
+        });
+        return false;
     }
 </script>
 <!-- <div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
