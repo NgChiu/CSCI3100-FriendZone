@@ -11,9 +11,11 @@ router.get('/post', postController.post_list);
 
 router.post('/post/create', auth, postController.post_create);
 
-router.get('/post/join', postController.post_join);
+router.post('/post/join', auth, postController.post_join);
 
-router.get('/post/delete', postController.post_delete);
+router.post('/post/delete', auth, postController.post_delete);
+
+router.post('/post/quit', auth, postController.post_quit);
 
 router.post('/member/login', memberController.member_login);
 
