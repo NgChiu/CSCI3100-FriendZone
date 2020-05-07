@@ -1,4 +1,5 @@
 var Member = require('../models/Member');
+var Post = require('../models/Post');
 var async = require('async');
 var jwt  = require ('jsonwebtoken');
 // var config = require ('../config');
@@ -85,13 +86,29 @@ exports.myself = async function (req, res){
 	try{
 		//For debug
 		// const currentUser = await Member.findOne({_id: "5e9f2158ab37a91a3d2e9698"});
-		console.log("req.user");
-		console.log(req.user);
+		// console.log("req.user");
+		// console.log(req.user);
 		const currentUser = await Member.findOne({_id: req.user.id});
+		var joinedTitle;
+		var createdTitle;
+		var created;
+		var joined;
 		if(!currentUser) throw Error('Fail to find member in database');
-		res.status(200).json(currentUser);
+		if (currentUser.CreatedPost){
+			created = await Post.findOne({_id: currentUser.CreatedPost});
+			if(!created) throw Error('Could not find created post in database');
+			createdTitle = created.Title;
+		}
+		if (currentUser.JoinedPost){
+			joined = await Post.findOne({_id: currentUser.JoinedPost});
+			if(!joined) throw Error('Could not find joined post in database');
+			joinedTitle = joined.Title;
+		}
+		console.log(joinedTitle);
+		res.status(200).json({currentUser, createdTitle, joinedTitle});
 		console.log(currentUser);
 	} catch (e){
 		res.status(404).send(e.message);
+		console.log(e.message);
 	}
 }
