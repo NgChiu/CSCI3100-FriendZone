@@ -13,7 +13,7 @@ function JoinEvent(inputbtn){
 				token: localStorage.getItem("token")
 			},
 			success: function(response){
-				alert("You have joined the event! \n Please contact the host via Line to have further details.\n Line: "+ inputbtn.LineID);
+				alert("You have joined the event! \n Please contact the host via Line to have further details.\n Line: "+ response.LineID);
 			},
 			error: function(response){
 				alert("Fail to join!");
@@ -104,6 +104,7 @@ $("#quit_event").click(function(){
 		},
 		success: function(response){
 			alert("You have quit the event.");
+	                window.location.href = "Myself.html";
 		},
 		error: function(response){
 			alert("Fail to quit.");
@@ -125,6 +126,7 @@ $("#delete_event").click(function(){
 		},
 		success: function(response){
 			alert("You have dismissed the event.");
+	                window.location.href = "Myself.html";
 		},
 		error: function(response){
 			alert("Fail to delete.");
