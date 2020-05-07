@@ -47,10 +47,10 @@
             $("#member-Password").html("Password: "+ member.currentUser.Password);
             $("#member-RPmark").html("RP mark: "+ member.currentUser.RPmark);
             $("#member-LineID").html("LineID: "+ member.currentUser.LineID);
-	          if(member.createdTitle) $("#member-CreatedPost").html("Created post: "+ member.createdTitle);
-	          else $("#member-CreatedPost").html("Created post: "+ "NONE");
-	          if(member.joinedTitle) $("#member-JoinedPost").html("Joined post: "+ member.joinedTitle);
-	          else $("#member-JoinedPost").html("Joined post: "+ "NONE");
+	    if(member.createdTitle) $("#member-CreatedPost").html("Created post: "+ member.createdTitle);
+	    else $("#member-CreatedPost").html("Created post: "+ "NONE");
+	    if(member.joinedTitle) $("#member-JoinedPost").html("Joined post: "+ member.joinedTitle);
+	    else $("#member-JoinedPost").html("Joined post: "+ "NONE");
           }
         })
       })
