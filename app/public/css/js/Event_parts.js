@@ -37,7 +37,7 @@ $("#update_btn").click(function(){
 	}
 	else{
 		$.getJSON("http://localhost:3000/catalog/post/"+x,function(data) {
-			for (var i = 0; i < data.length ; i++) {
+			for (var i = 1; i < data.length ; i++) {
 				var input = $('<input type="button" name="join_event" id="' + data[i]._id + '" value="Join" onclick="JoinEvent(this)" class="mdl-button mdl-js-button mdl-button--raised" style="background-color: #48AAAD; float: right;">');
 				$("#post_display").prepend("<h2>" + data[i].Title + "</h2> <p>Category: " + data[i].Category + "</p> <p>Date:" + data[i].Date + " </p> <p>Venue: " + data[i].Venue + "</p> <p>Quota: " + data[i].Quota + "</p> <p>Number of participant(s): " + data[i].NumberOfParticipants + "</p><p>Detail: " + data[i].Content + "</p><hr>");
 				$("#post_display").prepend(input);
