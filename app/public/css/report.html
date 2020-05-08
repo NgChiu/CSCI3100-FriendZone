@@ -122,8 +122,8 @@
     </div>
   </div>
   <hr>
-<script src="Logout.js"></script>
-<script src="CheckLogin.js"></script>
+<script src="js/Logout.js"></script>
+<script src="js/CheckLogin.js"></script>
 <script>
   function validateReport() {
     let username = document.getElementById("report-username").value;
@@ -137,17 +137,21 @@
       alert("Please enter the userID.");
       return false;
     }
-    let api = "http://localhost:3000/catalog/member/report/:" + userid;
+    let api = "http://localhost:3000/catalog/member/report";
     $.ajax({
-      method: "post",
       url: api,
+      type: 'POST',
+      datatype:'JSON',
       data: {
         reportUsername: username,
         reportUserid: userid,
         token: localStorage.getItem("token")
       },
       success: function(data) {
-        alert("You have reported " + data.Username + "!");
+        alert("You have reported " + data.UserID + "!");
+      },
+      error: function(data){
+	      alert(data.responseText);
       }
     });
     return false;
