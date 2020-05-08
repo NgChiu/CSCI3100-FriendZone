@@ -13,13 +13,46 @@ exports.post_list = async function (req, res) {
 		const posts = await Post.find({Date: { $gte: "20200424" }})
 			.sort([['Date','ascending']]);
 
-    	if (posts === undefined || posts.length == 0) throw Error('No posts is found');
+		//If there is no posts
+    		if (posts === undefined || posts.length == 0) throw Error('No posts is found');
 		if(!posts) throw Error('No posts is found');
+
+		//Get Host Info to get ready for return
+		let HostIDList = [];
+		let HostMarkList = [];
+		for(let tempPost of posts){
+			const tempMember = await Member.findOne({CreatedPost: tempPost._id});
+			if(!tempMember) throw Error('Could not find host data');
+			HostIDList = await [HostIDList, tempMember.UserID];
+			HostMarkList = await [HostMarkList, tempMember.RPmark];
+		}
+
+		//Get Participants Info to get ready for return
+		let PartiIDList = [];
+		let PartiMarkList = [];
+		let PartiNoList = [];
+		for(let tempPost of posts){
+			const currentJoined = await Joined.find({PostID: tempPost._id});
+			if(!currentJoined) throw Error('Could not find post data in joined database');
+			for(let tempJoined of currentJoined){
+				const tempMember = await Member.findOne({_id: tempJoined.MemberID});
+				if(!tempMember) throw Error('Could not find participant(s) data');
+				PartiIDList = await [PartiIDList, tempMember.UserID];
+				PartiMarkList = await [PartiMarkList, tempMember.RPmark];
+			}
+			PartiNoList = await [PartiNoList, tempPost.NumberOfParticipants];
+		}
 		console.log(posts);
+		console.log(HostIDList);
+		console.log(HostMarkList);
+		console.log(PartiIDList);
+		console.log(PartiMarkList);
+		console.log(PartiNoList);
 		res.status(200).json(posts);
     		
 	} catch (e) {
 		res.status(404).send(e.message);
+		console.log(e.message);
 	}
 }
 
@@ -240,8 +273,8 @@ exports.post_quit = async function (req, res){
 		const joinedRemoved = await currentJoined.remove();
 		if (!currentJoined||!joinedRemoved) throw Error('Could not update joined database');
 
-		console.log(currentUser);
-		res.status(200).send(currentUser);
+	    console.log(currentUser);
+	    res.status(200).send(currentUser);
 	} catch (e){
 		console.log(e.message);
 		res.status(404).send(e.message);
