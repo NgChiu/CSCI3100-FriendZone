@@ -274,7 +274,6 @@ exports.show_category = async function (req, res){
 		// if(!postList) throw Error('Could not find post in post database');
 		// console.log(postList);
 		// res.status(200).json(showList);
-		// res.end();
 		console.log(postList);
 		res.status(200).json(postList);
 	} catch (e){
