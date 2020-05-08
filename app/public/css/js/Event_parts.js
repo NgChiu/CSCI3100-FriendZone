@@ -13,7 +13,7 @@ function JoinEvent(inputbtn){
 				token: localStorage.getItem("token")
 			},
 			success: function(response){
-				alert("You have joined the event! \n Please contact the host via Line to have further details.\n Line: "+ response.LineID);
+				alert("You have joined the event! \n Please contact the host via Line to have further details.\n Host's LineID: "+ response.LineID);
 			},
 			error: function(response){
 				alert("Fail to join!");
@@ -84,9 +84,11 @@ $( "#create" ).submit( function (){
                 },
                 success: function(response){
                     alert("Event Created!");
+	            window.location.href = "index.html";
                 },
 		error: function(response){
-		    alert("Fail to create!");	
+		    alert("Fail to create!");
+	            window.location.href = "newevent.html";	
 		}
             })
 });
