@@ -180,30 +180,30 @@ exports.post_delete = async function (req, res){
 		//Remove post from database
 		const currentPost = await Post.findOne({_id: currentUser.CreatedPost});
 		if (!currentPost) throw Error('Could not find post data');
-	    const postRemove = await currentPost.remove();
-	    if (!postRemove) throw Error('Could not remove post');
-	    //Remove createdpost from currentUser
-	    const userResult = await Member.updateOne( { _id: currentUser._id },{ $unset: {"CreatedPost": ""}});
-	    console.log(currentUser.CreatedPost);
-	    if(!userResult) throw Error('Could not update user data');
-	    //Remove all related post from Joined database and joined member database
-	    var currentJoined = await Joined.find({PostID: currentPostID});
-	    console.log(currentJoined);
-	    for(let tempJoined of currentJoined){
-	    	const tempUser = await Member.findOne({_id: tempJoined.MemberID});
-	    	console.log(tempUser);
-	    	const userResult = await Member.updateOne( { _id: tempUser._id },{ $unset: {"JoinedPost": ""}});
-	    	if(!tempUser || !userResult) throw Error('Could not delete joined member data');
-	    	const joinedRemove = await tempJoined.remove();
-	    	if (!joinedRemove) throw Error('Could not delete joined member data');
-	    };
-	    //Remove the post from genre database
-	    var currentGenre = await Genre.findOne({PostID: currentPostID});
-	    const genreRemoved = await currentGenre.remove();
-	    if (!currentGenre || !genreRemoved) throw Error('Could not remove genre data');
+		const postRemove = await currentPost.remove();
+		if (!postRemove) throw Error('Could not remove post');
+		//Remove createdpost from currentUser
+		const userResult = await Member.updateOne( { _id: currentUser._id },{ $unset: {"CreatedPost": ""}});
+		console.log(currentUser.CreatedPost);
+		if(!userResult) throw Error('Could not update user data');
+		//Remove all related post from Joined database and joined member database
+		var currentJoined = await Joined.find({PostID: currentPostID});
+		console.log(currentJoined);
+		for(let tempJoined of currentJoined){
+			const tempUser = await Member.findOne({_id: tempJoined.MemberID});
+			console.log(tempUser);
+			const userResult = await Member.updateOne( { _id: tempUser._id },{ $unset: {"JoinedPost": ""}});
+			if(!tempUser || !userResult) throw Error('Could not delete joined member data');
+			const joinedRemove = await tempJoined.remove();
+			if (!joinedRemove) throw Error('Could not delete joined member data');
+		};
+		//Remove the post from genre database
+		var currentGenre = await Genre.findOne({PostID: currentPostID});
+		const genreRemoved = await currentGenre.remove();
+		if (!currentGenre || !genreRemoved) throw Error('Could not remove genre data');
 
-	    console.log(currentUser);
-	    res.status(200).send(currentUser);
+		console.log(currentUser);
+		res.status(200).send(currentUser);
 	} catch (e){
 		console.log(e.message);
 		res.status(404).send(e.message);
@@ -232,16 +232,16 @@ exports.post_quit = async function (req, res){
 		const postResult = await currentPost.save();
 		if(!postResult) throw Error('Could not update post data');
 		//remove currentuser.joinedpost
-	    const userResult = await Member.updateOne( { _id: currentUser._id },{ $unset: {"JoinedPost": ""}});
-	    console.log(currentUser.CreatedPost);
-	    if(!userResult) throw Error('Could not update user data');
-	    //Remove from Joined database
-	    const currentJoined = await Joined.findOne({PostID: currentPost._id, MemberID: currentUser._id});
-	    const joinedRemoved = await currentJoined.remove();
-	    if (!currentJoined||!joinedRemoved) throw Error('Could not update joined database');
+		const userResult = await Member.updateOne( { _id: currentUser._id },{ $unset: {"JoinedPost": ""}});
+		console.log(currentUser.CreatedPost);
+		if(!userResult) throw Error('Could not update user data');
+		//Remove from Joined database
+		const currentJoined = await Joined.findOne({PostID: currentPost._id, MemberID: currentUser._id});
+		const joinedRemoved = await currentJoined.remove();
+		if (!currentJoined||!joinedRemoved) throw Error('Could not update joined database');
 
-	    console.log(currentUser);
-	    res.status(200).send(currentUser);
+		console.log(currentUser);
+		res.status(200).send(currentUser);
 	} catch (e){
 		console.log(e.message);
 		res.status(404).send(e.message);
@@ -264,16 +264,17 @@ exports.show_category = async function (req, res){
 	 //    	// res.write(JSON.stringify(tempPost));
 	 //    });
 	 	let postList = [];
-	    for(let tempGenre of showList){
-	    	const tempPost = await Post.findOne({_id: tempGenre.PostID});
-	    	if (!tempPost) throw Error('Could not find post in post database');
-	    	console.log(tempPost);
-	    	postList = await [postList,tempPost];
-	    	// res.write(JSON.stringify(tempPost));
-	    }
+		for(let tempGenre of showList){
+			const tempPost = await Post.findOne({_id: tempGenre.PostID});
+			if (!tempPost) throw Error('Could not find post in post database');
+			console.log(tempPost);
+			postList = await [postList,tempPost];
+			// res.write(JSON.stringify(tempPost));
+		}
 		// if(!postList) throw Error('Could not find post in post database');
 		// console.log(postList);
 		// res.status(200).json(showList);
+		// res.end();
 		console.log(postList);
 		res.status(200).json(postList);
 	} catch (e){
