@@ -25,4 +25,6 @@ router.post('/member/register',memberController.member_register);
 
 router.post('/member/myself',auth, memberController.myself);
 
+router.post('/member/report', auth, memberController.report_user);
+
 module.exports = router;
