@@ -17,6 +17,8 @@ router.post('/post/delete', auth, postController.post_delete);
 
 router.post('/post/quit', auth, postController.post_quit);
 
+router.get('/post/:catID', postController.show_category);
+
 router.post('/member/login', memberController.member_login);
 
 router.post('/member/register',memberController.member_register);
