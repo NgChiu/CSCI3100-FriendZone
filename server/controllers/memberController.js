@@ -105,10 +105,39 @@ exports.myself = async function (req, res){
 			joinedTitle = joined.Title;
 		}
 		console.log(joinedTitle);
+		// if(!created && !joined) res.status(200).json(currentUser);
+		// else{
+		// 	if (!created) res.status(200).json({currentUser, joinedTitle});
+		// 	else {
+		// 		if (!joined) res.status(200).json({currentUser, createdTitle});
+		// 		else res.status(200).json({currentUser, createdTitle, joinedTitle});
+		// 	}
+		// }
 		res.status(200).json({currentUser, createdTitle, joinedTitle});
 		console.log(currentUser);
 	} catch (e){
 		res.status(404).send(e.message);
+		console.log(e.message);
+	}
+}
+
+exports.report_user = async function (req, res){
+	console.log("[route] GET /member/report/");
+	console.log(req.body.reportUserid);
+	try{
+		const badMember = await Member.findOne({UserID: req.body.reportUserid});
+		if(!badMember) throw Error('No member with this UserID');
+		const currentMember = await Member.findOne({_id: req.user.id});
+		if(!currentMember) throw Error('Could not find current user');
+		if(badMember.UserID.toString() === currentMember.UserID.toString())
+			throw Error('Could not report yourself')
+
+		badMember.RPmark = badMember.RPmark - 5;
+		const memberResult = await badMember.save();
+		res.status(200).json(memberResult);
+		console.log(memberResult);
+	} catch (e){
+		res.status(404).send(e.message.toString());
 		console.log(e.message);
 	}
 }
