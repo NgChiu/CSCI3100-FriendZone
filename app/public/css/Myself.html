@@ -29,8 +29,7 @@
 
   <!-- Custom styles for this template -->
   <link href="css/clean-blog.min.css" rel="stylesheet">
-  
-  <script src="js/CheckLogin.js"></script>
+
   <script>
     $(document).ready(function(){
       $(function() {
@@ -47,152 +46,156 @@
             $("#member-Password").html("Password: "+ member.currentUser.Password);
             $("#member-RPmark").html("RP mark: "+ member.currentUser.RPmark);
             $("#member-LineID").html("LineID: "+ member.currentUser.LineID);
-	    if(member.createdTitle) $("#member-CreatedPost").html("Created post: "+ member.createdTitle);
-	    else $("#member-CreatedPost").html("Created post: "+ "NONE");
-	    if(member.joinedTitle) $("#member-JoinedPost").html("Joined post: "+ member.joinedTitle);
-	    else $("#member-JoinedPost").html("Joined post: "+ "NONE");
+            if(member.createdTitle) $("#member-CreatedPost").html("Created post: "+ member.createdTitle);
+            else $("#member-CreatedPost").html("Created post: "+ "NONE");
+            if(member.joinedTitle) $("#member-JoinedPost").html("Joined post: "+ member.joinedTitle);
+            else $("#member-JoinedPost").html("Joined post: "+ "NONE");
           }
         })
       })
     });
 
+    function ToEdit() {
+      window.location.href = "Edit.html";
+    }
   </script>
 
 </head>
 
 <body>
 
-  <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-    <div class="container">
-      <a class="navbar-brand" href="index.html">Start FriendZone</a>
-      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        Menu
-        <i class="fas fa-bars"></i>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">Start FriendZone</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <i class="fas fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">Home</a>
+        </li>
+        <!-- need to change-->
+        <li class="nav-item">
+          <a class="nav-link" href="Login.html">Sign In</a>
+        </li>
+        <!-- need to change-->
+        <li class="nav-item">
+          <a class="nav-link" href="about.html">About</a>
+        </li>
+        <!-- need to change-->
+        <li class="nav-item">
+          <a class="nav-link" href="contact.html">Contact</a>
+        </li>
+      </ul>
+      <!-- Right aligned menu below button -->
+      <button id="demo-menu-lower-right"
+              class="mdl-button mdl-js-button mdl-button--icon" style="color: #33cc33">
+        <i class="material-icons">more_vert</i>
       </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="index.html">Home</a>
-          </li>
-          <!-- need to change-->
-          <li class="nav-item">
-            <a class="nav-link" href="Login.html">Sign In</a>
-          </li>
-          <!-- need to change-->
-          <li class="nav-item">
-            <a class="nav-link" href="about.html">About</a>
-          </li>
-          <!-- need to change-->
-          <li class="nav-item">
-            <a class="nav-link" href="contact.html">Contact</a>
-          </li>
-        </ul>
-        <!-- Right aligned menu below button -->
-        <button id="demo-menu-lower-right"
-        class="mdl-button mdl-js-button mdl-button--icon" style="color: #33cc33">
-          <i class="material-icons">more_vert</i>
-        </button>
 
-        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
-    for="demo-menu-lower-right">
-          <a href="Myself.html" style="text-decoration: none;">
-            <li class="mdl-menu__item">Myself</li>
-          </a>
-            
-          <a href="report.html" target="_blank" style="text-decoration: none;">
-            <li class="mdl-menu__item">Report User</li>
-          </a>
+      <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+          for="demo-menu-lower-right">
+        <a href="Myself.html" style="text-decoration: none;">
+          <li class="mdl-menu__item">Myself</li>
+        </a>
 
-          <li class="mdl-menu__item" id="logoutbtn">Sign Out</li>
-        </ul>
-      </div>
+        <a href="report.html" target="_blank" style="text-decoration: none;">
+          <li class="mdl-menu__item">Report User</li>
+        </a>
+
+        <li class="mdl-menu__item" id="logoutbtn">Sign Out</li>
+      </ul>
     </div>
-  </nav>
+  </div>
+</nav>
 
-  <!-- Page Header -->
-   <header class="masthead" style="background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQMAAADCCAMAAAB6zFdcAAAAA1BMVEUAv/6eIlC2AAAASElEQVR4nO3BMQEAAADCoPVPbQwfoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIC3AcUIAAFkqh/QAAAAAElFTkSuQmCC')">
-    <div class="overlay"></div>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-          <div class="page-heading">
-            <h1>Myself</h1>
-          </div>
+<!-- Page Header -->
+<header class="masthead" style="background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQMAAADCCAMAAAB6zFdcAAAAA1BMVEUAv/6eIlC2AAAASElEQVR4nO3BMQEAAADCoPVPbQwfoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIC3AcUIAAFkqh/QAAAAAElFTkSuQmCC')">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="page-heading">
+          <h1>Myself</h1>
         </div>
       </div>
     </div>
-  </header>
+  </div>
+</header>
 
-  <!-- Main Content -->
- <div class="container">
+<!-- Main Content -->
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 col-md-10 mx-auto">
+      <!-- Textfield with Floating Label -->
+      <div id="member-UserID"></div>
+      <div id="member-Username"></div>
+      <div id="member-Password"></div>
+      <div id="member-RPmark"></div>
+      <div id="member-LineID"></div>
+      <div id="member-JoinedPost"></div>
+      <button id="quit_event" class="mdl-button mdl-js-button mdl-button--raised" style="background-color: #90a1b2; color: white">Quit</button>
+      <div id="member-CreatedPost"></div>
+      <button id="delete_event" class="mdl-button mdl-js-button mdl-button--raised" style="background-color: #90a1b2; color: white">Delete</button>
+      <br><br>
+      <button id="chage_password" class="mdl-button mdl-js-button mdl-button--raised" style="background-color: #90a1b2; color: white" onclick="ToEdit()">Change your password</button>
+    </div>
+  </div>
+</div>
+<script src="js/Logout.js"></script>
+<!-- <div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
+  <div class="mdl-snackbar__text"></div>
+  <button class="mdl-snackbar__action" type="button"></button>
+</div> -->
+<!-- Footer -->
+<footer>
+  <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
-        <!-- Textfield with Floating Label -->
-        <div id="member-UserID"></div>
-        <div id="member-Username"></div>
-        <div id="member-Password"></div>
-        <div id="member-RPmark"></div>
-        <div id="member-LineID"></div>
-        <div id="member-JoinedPost"></div>
-        <button id="quit_event" class="mdl-button mdl-js-button mdl-button--raised" style="background-color: #90a1b2; color: white">Quit</button>
-        <div id="member-CreatedPost"></div>
-        <button id="delete_event" class="mdl-button mdl-js-button mdl-button--raised" style="background-color: #90a1b2; color: white">Delete</button>
-      </div>
-    </div>
- </div>
-  <script src="js/Logout.js"></script>
-          <!-- <div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
-            <div class="mdl-snackbar__text"></div>
-            <button class="mdl-snackbar__action" type="button"></button>
-          </div> -->
-  <!-- Footer -->
-  <footer>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-          <ul class="list-inline text-center">
-            <li class="list-inline-item">
-              <a href="#">
+        <ul class="list-inline text-center">
+          <li class="list-inline-item">
+            <a href="#">
                 <span class="fa-stack fa-lg">
                   <i class="fas fa-circle fa-stack-2x"></i>
                   <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
                 </span>
-              </a>
-            </li>
-            <li class="list-inline-item">
-              <a href="#">
+            </a>
+          </li>
+          <li class="list-inline-item">
+            <a href="#">
                 <span class="fa-stack fa-lg">
                   <i class="fas fa-circle fa-stack-2x"></i>
                   <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
                 </span>
-              </a>
-            </li>
-            <li class="list-inline-item">
-              <a href="#">
+            </a>
+          </li>
+          <li class="list-inline-item">
+            <a href="#">
                 <span class="fa-stack fa-lg">
                   <i class="fas fa-circle fa-stack-2x"></i>
                   <i class="fab fa-github fa-stack-1x fa-inverse"></i>
                 </span>
-              </a>
-            </li>
-          </ul>
-          <p class="copyright text-muted">Copyright &copy; FriendZone 2020</p>
-        </div>
+            </a>
+          </li>
+        </ul>
+        <p class="copyright text-muted">Copyright &copy; FriendZone 2020</p>
       </div>
     </div>
-  </footer>
+  </div>
+</footer>
 
-  <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-  <!-- Custom scripts for this template -->
-  <script src="js/clean-blog.min.js"></script>
-  
-  
-  <script src="js/CheckLogin.js"></script> 
-  <script src="js/Event_parts.js"></script>
+<!-- Custom scripts for this template -->
+<script src="js/clean-blog.min.js"></script>
+
+<script src="js/CheckLogin.js"></script>
+<script src="js/Event_parts.js"></script>
 
 </body>
 </html>
