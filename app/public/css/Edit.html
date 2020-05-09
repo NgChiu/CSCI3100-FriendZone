@@ -61,6 +61,7 @@
                 type: "POST",
                 datatype: "JSON",
                 data: {
+                    oldPassword: old_password,
                     newPassword: new_password,
                     token: localStorage.getItem("token")
                 },
