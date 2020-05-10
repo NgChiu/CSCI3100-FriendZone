@@ -35,27 +35,27 @@
             let new_password = document.getElementById("newPassword").value;
             let repeat_password = document.getElementById("repeatPassword").value;
 
-            if (old_password === "") {
+            if (old_password === "") { //check if input old password is empty 
                 window.alert("Please enter your original password.");
                 return false;
             }
-            if (new_password === "") {
+            if (new_password === "") { //check if input new password is empty
                 window.alert("Please enter your new password.");
                 return false;
             }
-            if (repeat_password === "") {
+            if (repeat_password === "") {//check if input repeat password is empty 
                 window.alert("Please enter your new password again.");
                 return false;
             }
-            if (new_password !== repeat_password) {
+            if (new_password !== repeat_password) {//check if new password and repeat password are the same
                 window.alert("Two passwords are not the same!");
                 return false;
             }
-            if (old_password === new_password) {
+            if (old_password === new_password) {//check if old password and new password are the same
                 window.alert("Please do not use old password as new password.");
                 return false;
             }
-            $.ajax({
+            $.ajax({//send old and new passwords to server
                 url: "http://localhost:3000/catalog/member/edit",
                 type: "POST",
                 datatype: "JSON",
@@ -64,7 +64,7 @@
                     newPassword: new_password,
                     token: localStorage.getItem("token")
                 },
-                success: function(){
+                success: function(){ //redirect to Myself.html when success
                     alert("You have successfully change your password!");
                     window.location.href = "Myself.html";
                 }
