@@ -16,7 +16,7 @@ function JoinEvent(inputbtn){
 				alert("You have joined the event! \n Please contact the host via Line to have further details.\n Host's LineID: "+ response.LineID);
 			},
 			error: function(response){
-				alert("Fail to join!");
+				alert(response.responseText);
 			}
 	});
 }
@@ -27,19 +27,31 @@ $("#update_btn").click(function(){
 	$("#post_display").empty();
 	let x = document.getElementById("category").value;
 	if (x === ""){
+		var j = 0;
 		$.getJSON("http://localhost:3000/catalog/post",function(data) {
 			for (var i = 0; i < data.length ; i++) {
 				var input = $('<input type="button" name="join_event" id="' + data[i]._id + '" value="Join" onclick="JoinEvent(this)" class="mdl-button mdl-js-button mdl-button--raised" style="background-color: #48AAAD; float: right;">');
-				$("#post_display").prepend("<h2>" + data[i].Title + "</h2> <p>Category: " + data[i].Category + "</p> <p>Date:" + data[i].Date + " </p> <p>Venue: " + data[i].Venue + "</p> <p>Quota: " + data[i].Quota + "</p> <p>Number of participant(s): " + data[i].NumberOfParticipants + "</p><p>Detail: " + data[i].Content + "</p><hr>");
+				$("#post_display").prepend("<hr>");
+				for (; j < data.post[i].NumberOfParticipants ; j++)
+					$("#post_display").prepend("<p>" + (data.post[i].NumberOfParticipants-(j+1)) + ") UserID: " + data.PartiIDList[j] + "[RP mark: " + data.PartiMarkList[j] + "]</p>");
+				$("#post_display").prepend("<p>Participants' Information: </p>");
+				$("#post_display").prepend("<p>Host's Information: UserID: " + data.HostIDList[i] + "[RP mark: " + data.HostMarkList[i] + "]</p>");
+				$("#post_display").prepend("<h2>" + data.post[i].Title + "</h2> <p>Category: " + data.post[i].Category + "</p> <p>Date:" + data.post[i].Date + " </p> <p>Venue: " + data.post[i].Venue + "</p> <p>Quota: " + data.post[i].Quota + "</p> <p>Number of participant(s): " + data.post[i].NumberOfParticipants + "</p><p>Detail: " + data.post[i].Content + "</p>");
 				$("#post_display").prepend(input);
 			}
 		});
 	}
 	else{
+		var j = 0;
 		$.getJSON("http://localhost:3000/catalog/post/"+x,function(data) {
 			for (var i = 1; i < data.length ; i++) {
 				var input = $('<input type="button" name="join_event" id="' + data[i]._id + '" value="Join" onclick="JoinEvent(this)" class="mdl-button mdl-js-button mdl-button--raised" style="background-color: #48AAAD; float: right;">');
-				$("#post_display").prepend("<h2>" + data[i].Title + "</h2> <p>Category: " + data[i].Category + "</p> <p>Date:" + data[i].Date + " </p> <p>Venue: " + data[i].Venue + "</p> <p>Quota: " + data[i].Quota + "</p> <p>Number of participant(s): " + data[i].NumberOfParticipants + "</p><p>Detail: " + data[i].Content + "</p><hr>");
+				$("#post_display").prepend("<hr>");
+				for (; j < data.post[i].NumberOfParticipants ; j++)
+					$("#post_display").prepend("<p>" + (data.post[i].NumberOfParticipants-(j+1)) + ") UserID: " + data.PartiIDList[j] + "[RP mark: " + data.PartiMarkList[j] + "]</p>");
+				$("#post_display").prepend("<p>Participants' Information: </p>");
+				$("#post_display").prepend("<p>Host's Information: UserID: " + data.HostIDList[i] + "[RP mark: " + data.HostMarkList[i] + "]</p>");
+				$("#post_display").prepend("<h2>" + data.post[i].Title + "</h2> <p>Category: " + data.post[i].Category + "</p> <p>Date:" + data.post[i].Date + " </p> <p>Venue: " + data.post[i].Venue + "</p> <p>Quota: " + data.post[i].Quota + "</p> <p>Number of participant(s): " + data.post[i].NumberOfParticipants + "</p><p>Detail: " + data.post[i].Content + "</p>");
 				$("#post_display").prepend(input);
 			}
 		});
@@ -87,7 +99,7 @@ $( "#create" ).submit( function (){
 	            window.location.href = "index.html";
                 },
 		error: function(response){
-		    alert("Fail to create!");
+		    alert(response.responseText);
 	            window.location.href = "newevent.html";	
 		}
             })
@@ -109,7 +121,7 @@ $("#quit_event").click(function(){
 	                window.location.href = "Myself.html";
 		},
 		error: function(response){
-			alert("Fail to quit.");
+			alert(response.responseText);
 		}
 	});
 });
@@ -131,7 +143,7 @@ $("#delete_event").click(function(){
 	                window.location.href = "Myself.html";
 		},
 		error: function(response){
-			alert("Fail to delete.");
+			alert(response.responseText);
 		}
 	});
 
