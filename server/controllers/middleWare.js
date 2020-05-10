@@ -10,7 +10,7 @@ const  JWT_SECRET  = {
 
 module.exports =  (req, res, next) => {
   const token = req.body.token;  
-  console.log(token);
+  // console.log(token);
 
   //If no token
   if (!token){
