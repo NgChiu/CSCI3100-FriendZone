@@ -67,6 +67,9 @@
                 success: function(){ //redirect to Myself.html when success
                     alert("You have successfully change your password!");
                     window.location.href = "Myself.html";
+                },
+                error: function(data){ //display error message when fail 
+                    alert(data.responseText);
                 }
             });
             return false;
