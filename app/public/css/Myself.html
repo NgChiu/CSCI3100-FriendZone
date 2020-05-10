@@ -43,7 +43,6 @@
           success: function(member){
             $("#member-UserID").html("UserID: "+ member.currentUser.UserID);
             $("#member-Username").html("Username: "+ member.currentUser.Username);
-            $("#member-Password").html("Password: "+ member.currentUser.Password);
             $("#member-RPmark").html("RP mark: "+ member.currentUser.RPmark);
             $("#member-LineID").html("LineID: "+ member.currentUser.LineID);
             if(member.createdTitle) $("#member-CreatedPost").html("Created post: "+ member.createdTitle);
@@ -133,7 +132,6 @@
       <!-- Textfield with Floating Label -->
       <div id="member-UserID"></div>
       <div id="member-Username"></div>
-      <div id="member-Password"></div>
       <div id="member-RPmark"></div>
       <div id="member-LineID"></div>
       <div id="member-JoinedPost"></div>
