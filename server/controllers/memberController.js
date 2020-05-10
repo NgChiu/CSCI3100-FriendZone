@@ -122,7 +122,7 @@ exports.myself = async function (req, res){
 }
 
 exports.report_user = async function (req, res){
-	console.log("[route] GET /member/report/");
+	console.log("[route] GET /member/report");
 	console.log(req.body.reportUserid);
 	try{
 		const badMember = await Member.findOne({UserID: req.body.reportUserid});
@@ -137,7 +137,26 @@ exports.report_user = async function (req, res){
 		res.status(200).json(memberResult);
 		console.log(memberResult);
 	} catch (e){
-		res.status(404).send(e.message.toString());
+		res.status(404).send(e.message);
+		console.log(e.message);
+	}
+}
+
+exports.change_pw = async function(req, res){
+	console.log("[route] POST /member/edit");
+	try{
+		const currentMember = await Member.findOne({_id: req.user.id});
+		if(!currentMember) throw Error('Could not find current member');
+		console.log(req.body.oldPassword.toString());
+		if(req.body.oldPassword.toString() !== currentMember.Password)
+			throw Error('Current password incorrect');
+		currentMember.Password = req.body.newPassword;
+		const memberResult = await currentMember.save();
+		if(!memberResult) throw Error('Could not update password to database');
+		res.status(200).json(memberResult);
+		console.log(memberResult);
+	} catch (e){
+		res.status(404).send(e.message);
 		console.log(e.message);
 	}
 }
