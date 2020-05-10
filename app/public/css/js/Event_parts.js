@@ -33,7 +33,8 @@ $("#update_btn").click(function(){
 				var ppl = 0;
 				var input = $('<input type="button" name="join_event" id="' + data.posts[i]._id + '" value="Join" onclick="JoinEvent(this)" class="mdl-button mdl-js-button mdl-button--raised" style="background-color: #48AAAD; float: right;">');
 				$("#post_display").prepend("<hr>");
-				for (; j < j + data.posts[i].NumberOfParticipants ; j++){
+				var cnt = j;
+				for (; j < cnt + data.posts[i].NumberOfParticipants ; j++){
 					$("#post_display").prepend("<p>" + (data.posts[i].NumberOfParticipants-ppl) + ") UserID: " + data.PartiIDList[j] + "[RP mark: " + data.PartiMarkList[j] + "]</p>");
 					ppl++;
 				}
@@ -51,7 +52,8 @@ $("#update_btn").click(function(){
 				var ppl = 0;
 				var input = $('<input type="button" name="join_event" id="' + data.posts[i]._id + '" value="Join" onclick="JoinEvent(this)" class="mdl-button mdl-js-button mdl-button--raised" style="background-color: #48AAAD; float: right;">');
 				$("#post_display").prepend("<hr>");
-				for (; j < j + data.posts[i].NumberOfParticipants ; j++){
+				var cnt = j;
+				for (; j < cnt + data.posts[i].NumberOfParticipants ; j++){
 					$("#post_display").prepend("<p>" + (data.posts[i].NumberOfParticipants-ppl) + ") UserID: " + data.PartiIDList[j] + "[RP mark: " + data.PartiMarkList[j] + "]</p>");
 					ppl++;
 				}
