@@ -142,32 +142,37 @@
     </div>
   </div>
   
-  <script>
-    $(document).ready(function(){
-      $(function(){
-        $("#post_display").empty();
-        let x = document.getElementById("category").value;
+<script> 
+  $(document).ready(function(){
+    $(function(){
+      $("#post_display").empty();
+      var j = 1;
+      var ppl = 1;
+      $.getJSON("http://localhost:3000/catalog/post",function(data) {
+        var cnt_mod = data.posts.length % 2;
+        
+        var i = 0;
+        if (cnt_mod == 1){
+          var input = $('<div class="mdl-card__actions mdl-card--border"><a id="' + data.posts[i]._id + '"class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" onclick="JoinEvent(this)">Join</a></div>');
 
-    var j = 1;
-    var ppl = 1;
-    $.getJSON("http://localhost:3000/catalog/post",function(data) {
-      for (var i = 0; i < data.posts.length ; i++) {
-        var input = $('<input type="button" name="join_event" id="' + data.posts[i]._id + '" value="Join" onclick="JoinEvent(this)" class="mdl-button mdl-js-button mdl-button--raised" style="background-color: #48AAAD; float: right;">');
-        $("#post_display").prepend("<hr>");
-        for (j = ppl; j < (ppl + data.posts[i].NumberOfParticipants) ; j++){
-          $("#post_display").prepend("<p>" + j + ") UserID: " + data.PartiIDList[j] + "[RP mark: " + data.PartiMarkList[j] + "]</p>");
+          var content = $('<div class="row"><div class="col-sm-6"><div class="mdl-shadow--2dp card"><div class="card-body"><h5 class="card-title">' + data.posts[i].Title + '</h5><p class="card-text">Category: '+ data.posts[i].Category +'</p><p class="card-text">Date: '+ data.posts[i].Date +'</p><p class="card-text">Venue: '+ data.posts[i].Venue +'</p><p class="card-text">Quota: '+ data.posts[i].Quota +'</p><p class="card-text">Nymber of participant(s): '+ data.posts[i].NumberOfParticipants +'</p><p class="card-text">Detail: '+ data.posts[i].Content +'</p>' + input + '</div></div></div></div><br>');
+
+          $("#post_display").prepend(content);
+          i++;
         }
-        ppl = ppl + data.posts[i].NumberOfParticipants;
-        $("#post_display").prepend("<p>Participants' Information: </p>");
-        $("#post_display").prepend("<p>Host's Information: UserID: " + data.HostIDList[i] + "[RP mark: " + data.HostMarkList[i] + "]</p>");
-        $("#post_display").prepend("<h2>" + data.posts[i].Title + "</h2> <p>Category: " + data.posts[i].Category + "</p> <p>Date:" + data.posts[i].Date + " </p> <p>Venue: " + data.posts[i].Venue + "</p> <p>Quota: " + data.posts[i].Quota + "</p> <p>Number of participant(s): " + data.posts[i].NumberOfParticipants + "</p><p>Detail: " + data.posts[i].Content + "</p>");
-        $("#post_display").prepend(input);
-      }
+        for (var z = 0; z < cnt_set; z++){
+          var input_1 = $('<div class="mdl-card__actions mdl-card--border"><a id="' + data.posts[i]._id + '"class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" onclick="JoinEvent(this)">Join</a></div>');
+          var input_2 = $('<div class="mdl-card__actions mdl-card--border"><a id="' + data.posts[i+1]._id + '"class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" onclick="JoinEvent(this)">Join</a></div>');
+          var content_1 = $('<div class="col-sm-6"><div class="mdl-shadow--2dp card"><div class="card-body"><h5 class="card-title">' + data.posts[i].Title + '</h5><p class="card-text">Category: '+ data.posts[i].Category +'</p><p class="card-text">Date: '+ data.posts[i].Date +'</p><p class="card-text">Venue: '+ data.posts[i].Venue +'</p><p class="card-text">Quota: '+ data.posts[i].Quota +'</p><p class="card-text">Nymber of participant(s): '+ data.posts[i].NumberOfParticipants +'</p><p class="card-text">Detail: '+ data.posts[i].Content +'</p>' + input_1 + '</div></div></div>');
+          var content_2 = $('<div class="col-sm-6"><div class="mdl-shadow--2dp card"><div class="card-body"><h5 class="card-title">' + data.posts[i+1].Title + '</h5><p class="card-text">Category: '+ data.posts[i+1].Category +'</p><p class="card-text">Date: '+ data.posts[i+1].Date +'</p><p class="card-text">Venue: '+ data.posts[i+1].Venue +'</p><p class="card-text">Quota: '+ data.posts[i+1].Quota +'</p><p class="card-text">Nymber of participant(s): '+ data.posts[i+1].NumberOfParticipants +'</p><p class="card-text">Detail: '+ data.posts[i+1].Content +'</p>' + input_2 + '</div></div></div>');
+          $("#post_display").prepend('<div class="row">'+ content_1 + content_2 +'</div><br>');
+          i = i + 2;
+        }
     });
-  
-      });
+
     });
-  </script>
+  });
+</script>
 
 
   <!-- Footer -->
