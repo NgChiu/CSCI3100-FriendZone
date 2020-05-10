@@ -150,6 +150,7 @@
       var ppl = 1;
       $.getJSON("http://localhost:3000/catalog/post",function(data) {
         var cnt_mod = data.posts.length % 2;
+        var cnt_set = data.posts.lenght / 2;
         
         var i = 0;
         if (cnt_mod == 1){
