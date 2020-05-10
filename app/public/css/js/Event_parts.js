@@ -27,17 +27,16 @@ $("#update_btn").click(function(){
 	$("#post_display").empty();
 	let x = document.getElementById("category").value;
 	if (x === ""){
-		var j = 0;
+		var j = 1;
+		var ppl = 1;
 		$.getJSON("http://localhost:3000/catalog/post",function(data) {
 			for (var i = 0; i < data.posts.length ; i++) {
-				var ppl = 0;
 				var input = $('<input type="button" name="join_event" id="' + data.posts[i]._id + '" value="Join" onclick="JoinEvent(this)" class="mdl-button mdl-js-button mdl-button--raised" style="background-color: #48AAAD; float: right;">');
 				$("#post_display").prepend("<hr>");
-				var cnt = j;
-				for (; j < cnt + data.posts[i].NumberOfParticipants ; j++){
-					$("#post_display").prepend("<p>" + (data.posts[i].NumberOfParticipants-ppl) + ") UserID: " + data.PartiIDList[j] + "[RP mark: " + data.PartiMarkList[j] + "]</p>");
-					ppl++;
+				for (j = ppl; j < (ppl + data.posts[i].NumberOfParticipants) ; j++){
+					$("#post_display").prepend("<p>" + j + ") UserID: " + data.PartiIDList[j] + "[RP mark: " + data.PartiMarkList[j] + "]</p>");
 				}
+				ppl = ppl + data.posts[i].NumberOfParticipants;
 				$("#post_display").prepend("<p>Participants' Information: </p>");
 				$("#post_display").prepend("<p>Host's Information: UserID: " + data.HostIDList[i] + "[RP mark: " + data.HostMarkList[i] + "]</p>");
 				$("#post_display").prepend("<h2>" + data.posts[i].Title + "</h2> <p>Category: " + data.posts[i].Category + "</p> <p>Date:" + data.posts[i].Date + " </p> <p>Venue: " + data.posts[i].Venue + "</p> <p>Quota: " + data.posts[i].Quota + "</p> <p>Number of participant(s): " + data.posts[i].NumberOfParticipants + "</p><p>Detail: " + data.posts[i].Content + "</p>");
@@ -46,20 +45,19 @@ $("#update_btn").click(function(){
 		});
 	}
 	else{
-		var j = 0;
+		var j = 1;
+		var ppl = 1;
 		$.getJSON("http://localhost:3000/catalog/post/"+x,function(data) {
-			for (var i = 1; i < data.posts.length ; i++) {
-				var ppl = 0;
-				var input = $('<input type="button" name="join_event" id="' + data.posts[i]._id + '" value="Join" onclick="JoinEvent(this)" class="mdl-button mdl-js-button mdl-button--raised" style="background-color: #48AAAD; float: right;">');
+			for (var i = 1; i < data.postList.length ; i++) {
+				var input = $('<input type="button" name="join_event" id="' + data.postList[i]._id + '" value="Join" onclick="JoinEvent(this)" class="mdl-button mdl-js-button mdl-button--raised" style="background-color: #48AAAD; float: right;">');
 				$("#post_display").prepend("<hr>");
-				var cnt = j;
-				for (; j < cnt + data.posts[i].NumberOfParticipants ; j++){
-					$("#post_display").prepend("<p>" + (data.posts[i].NumberOfParticipants-ppl) + ") UserID: " + data.PartiIDList[j] + "[RP mark: " + data.PartiMarkList[j] + "]</p>");
-					ppl++;
+				for (j = ppl; j < ppl + data.postList[i].NumberOfParticipants ; j++){
+					$("#post_display").prepend("<p>" + j + ") UserID: " + data.PartiIDList[j] + "[RP mark: " + data.PartiMarkList[j] + "]</p>");
 				}
+				ppl = ppl + data.postList[i].NumberOfParticipants;
 				$("#post_display").prepend("<p>Participants' Information: </p>");
 				$("#post_display").prepend("<p>Host's Information: UserID: " + data.HostIDList[i] + "[RP mark: " + data.HostMarkList[i] + "]</p>");
-				$("#post_display").prepend("<h2>" + data.posts[i].Title + "</h2> <p>Category: " + data.posts[i].Category + "</p> <p>Date:" + data.posts[i].Date + " </p> <p>Venue: " + data.posts[i].Venue + "</p> <p>Quota: " + data.posts[i].Quota + "</p> <p>Number of participant(s): " + data.posts[i].NumberOfParticipants + "</p><p>Detail: " + data.posts[i].Content + "</p>");
+				$("#post_display").prepend("<h2>" + data.postList[i].Title + "</h2> <p>Category: " + data.postList[i].Category + "</p> <p>Date:" + data.postList[i].Date + " </p> <p>Venue: " + data.postList[i].Venue + "</p> <p>Quota: " + data.postList[i].Quota + "</p> <p>Number of participant(s): " + data.postList[i].NumberOfParticipants + "</p><p>Detail: " + data.postList[i].Content + "</p>");
 				$("#post_display").prepend(input);
 			}
 		});
