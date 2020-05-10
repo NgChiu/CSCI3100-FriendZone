@@ -49,7 +49,7 @@ $("#update_btn").click(function(){
 		var j = 1;
 		var ppl = 1;
 		$.getJSON("http://localhost:3000/catalog/post/"+x,function(data) {
-			if(data.posts.length === 0) console.log("NO Post yet.");
+			if(data.postList.length === 0) console.log("NO Post yet.");
 			for (var i = 1; i < data.postList.length ; i++) {
 				var input = $('<input type="button" name="join_event" id="' + data.postList[i]._id + '" value="Join" onclick="JoinEvent(this)" class="mdl-button mdl-js-button mdl-button--raised" style="background-color: #48AAAD; float: right;">');
 				$("#post_display").prepend("<hr>");
