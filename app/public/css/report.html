@@ -2,194 +2,182 @@
 <html lang="en">
 
 <head>
-    <!--myself-->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
-    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-    <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
-    <script src="js/custom_select_newevent.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <!--myself-->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+  <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+  <script src="js/custom_select_newevent.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-    <!--myself-->
+  <!--myself-->
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
 
-    <title>FriendZone--Report</title>
+  <title>FriendZone--Report</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom fonts for this template -->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+  <!-- Custom fonts for this template -->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 
-    <!-- Custom styles for this template -->
-    <link href="css/clean-blog.min.css" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="css/clean-blog.min.css" rel="stylesheet">
 </head>
 
 <body>
 
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-    <div class="container">
-        <a class="navbar-brand" href="index.html">Start FriendZone</a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            Menu
-            <i class="fas fa-bars"></i>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="index.html">Home</a>
-                </li>
-                <!-- need to change-->
-                <li class="nav-item">
-                    <a class="nav-link" href="Login.html">Sign In</a>
-                </li>
-                <!-- need to change-->
-                <li class="nav-item">
-                    <a class="nav-link" href="about.html">About</a>
-                </li>
-                <!-- need to change-->
-                <li class="nav-item">
-                    <a class="nav-link" href="contact.html">Contact</a>
-                </li>
-            </ul>
-            <!-- Right aligned menu below button -->
-            <button id="demo-menu-lower-right"
-                    class="mdl-button mdl-js-button mdl-button--icon" style="color: #33cc33">
-                <i class="material-icons">more_vert</i>
-            </button>
+  <div class="container">
+    <a class="navbar-brand" href="index.html">Start FriendZone</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <i class="fas fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="about.html">About</a>
+        </li>
+      </ul>
+      <!-- Right aligned menu below button -->
+      <button id="demo-menu-lower-right"
+              class="mdl-button mdl-js-button mdl-button--icon" style="color: #33cc33">
+        <i class="material-icons">more_vert</i>
+      </button>
 
-            <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
-                for="demo-menu-lower-right">
-                <a href="Myself.html" style="text-decoration: none;">
-                    <li class="mdl-menu__item">Myself</li>
-                </a>
+      <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+          for="demo-menu-lower-right">
+        <a href="Myself.html" style="text-decoration: none;">
+          <li class="mdl-menu__item">Myself</li>
+        </a>
 
-                <a href="report.html" target="_blank" style="text-decoration: none;">
-                    <li class="mdl-menu__item">Report User</li>
-                </a>
+        <a href="report.html" style="text-decoration: none;">
+          <li class="mdl-menu__item">Report User</li>
+        </a>
 
-                <li class="mdl-menu__item" id="logoutbtn">Sign Out</li>
-            </ul>
-        </div>
+        <li class="mdl-menu__item" id="logoutbtn">Sign Out</li>
+      </ul>
     </div>
+  </div>
 </nav>
 
 <!-- Page Header -->
 <header class="masthead" style="background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQMAAADCCAMAAAB6zFdcAAAAA1BMVEUAv/6eIlC2AAAASElEQVR4nO3BMQEAAADCoPVPbQwfoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIC3AcUIAAFkqh/QAAAAAElFTkSuQmCC')">
-    <div class="overlay"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-md-10 mx-auto">
-                <div class="page-heading">
-                    <h1>Report</h1>
-                    <span class="subheading">Tell Us Who Use FriendZone Inappropriately.</span>
-                </div>
-            </div>
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="page-heading">
+          <h1>Report</h1>
+          <span class="subheading">Tell Us Who Use FriendZone Inappropriately.</span>
         </div>
+      </div>
     </div>
+  </div>
 </header>
 
 <!-- Main Content -->
 <div class="container">
-    <div class="row">
-        <div class="col-lg-4 col-md-10 mx-auto">
-            <!-- Textfield with Floating Label -->
+  <div class="row">
+    <div class="col-lg-4 col-md-10 mx-auto">
+      <!-- Textfield with Floating Label -->
 
-            <form id="reportform" action="#" method="POST" onsubmit="return validateReport()">
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" id="report-userid" name="reportUserid">
-                    <label class="mdl-textfield__label" for="report-userid">UserID of the reported user</label>
-                </div>
-
-                <button id="demo-show-toast" class="mdl-button mdl-js-button mdl-button--raised" type="Submit" style="background-color: #FF6948">Submit</button>
-                <div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
-                    <div class="mdl-snackbar__text"></div>
-                    <button class="mdl-snackbar__action" type="button"></button>
-                </div>
-            </form>
+      <form id="reportform" action="#" method="POST" onsubmit="return validateReport()">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input class="mdl-textfield__input" type="text" id="report-userid" name="reportUserid">
+          <label class="mdl-textfield__label" for="report-userid">UserID of the reported user</label>
         </div>
+
+        <button id="demo-show-toast" class="mdl-button mdl-js-button mdl-button--raised" type="Submit" style="background-color: #FF6948">Submit</button>
+        <div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
+          <div class="mdl-snackbar__text"></div>
+          <button class="mdl-snackbar__action" type="button"></button>
+        </div>
+      </form>
     </div>
+  </div>
 </div>
 <hr>
+<script src="js/Logout.js"></script>
+<script src="js/CheckLogin.js"></script>
 <script>
-    function validateReport() {
-        let userid = document.getElementById("report-userid").value;
+  function validateReport() {
+    let userid = document.getElementById("report-userid").value;
 
-        if (userid === "") {
-            alert("Please enter the userID.");
-            return false;
-        }
-        let api = "http://localhost:3000/catalog/member/report";
-        $.ajax({
-            url: api,
-            type: 'POST',
-            datatype:'JSON',
-            data: {
-                reportUserid: userid,
-                token: localStorage.getItem("token")
-            },
-            success: function(data) {
-                alert("You have reported " + data.UserID + "!");
-            },
-            error: function(data){
-                alert(data.responseText);
-            }
-        });
-        return false;
+    if (userid === "") { //check if userid is empty
+      alert("Please enter the userID.");
+      return false;
     }
+    $.ajax({ //send userid and token to server
+      url: "http://localhost:3000/catalog/member/report",
+      type: 'POST',
+      datatype:'JSON',
+      data: {
+        reportUserid: userid,
+        token: localStorage.getItem("token")
+      },
+      success: function(data) { //display success message when success
+        alert("You have reported " + data.UserID + "!");
+      },
+      error: function(data){ //display error message when fail
+        alert(data.responseText);
+      }
+    });
+    return false;
+  }
 </script>
 <!-- Footer -->
 <!-- Footer -->
 <footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-md-10 mx-auto">
-                <ul class="list-inline text-center">
-                    <li class="list-inline-item">
-                        <a href="#">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <ul class="list-inline text-center">
+          <li class="list-inline-item">
+            <a href="#">
                 <span class="fa-stack fa-lg">
                   <i class="fas fa-circle fa-stack-2x"></i>
                   <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
                 </span>
-                        </a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="#">
+            </a>
+          </li>
+          <li class="list-inline-item">
+            <a href="#">
                 <span class="fa-stack fa-lg">
                   <i class="fas fa-circle fa-stack-2x"></i>
                   <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
                 </span>
-                        </a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="#">
+            </a>
+          </li>
+          <li class="list-inline-item">
+            <a href="#">
                 <span class="fa-stack fa-lg">
                   <i class="fas fa-circle fa-stack-2x"></i>
                   <i class="fab fa-github fa-stack-1x fa-inverse"></i>
                 </span>
-                        </a>
-                    </li>
-                </ul>
-                <p class="copyright text-muted">Copyright &copy; FriendZone 2020</p>
-            </div>
-        </div>
+            </a>
+          </li>
+        </ul>
+        <p class="copyright text-muted">Copyright &copy; FriendZone 2020</p>
+      </div>
     </div>
+  </div>
 </footer>
 
 <!-- Bootstrap core JavaScript -->
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    
-<!-- Custom scripts for this template -->
-<script src="js/Logout.js"></script>
-<script src="js/CheckLogin.js"></script>
 
 </body>
 </html>
