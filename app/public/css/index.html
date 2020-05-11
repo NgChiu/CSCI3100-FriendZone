@@ -127,30 +127,62 @@
     </div>
   </div>
   
-<script>  
+<script>   
   $(document).ready(function(){
     $(function(){
       $("#post_display").empty();
-      var ppl = 1;
+      var ppl = 0;
       $.getJSON("http://localhost:3000/catalog/post",function(data) {
         var cnt_mod = data.posts.length % 2;
         var cnt_set = data.posts.length / 2;
-        
+        var PartiInfo_ID = 0;
         var i = 0;
         if (cnt_mod == 1){
 
-          $("#post_display").prepend('<div class="row"><div class="col-sm-6"><div class="mdl-shadow--2dp card"><div class="card-body"><h5 class="card-title">' + data.posts[i].Title + '</h5><p class="card-text">Category: '+ data.posts[i].Category +'</p><p class="card-text">Date: '+ data.posts[i].Date +'</p><p class="card-text">Venue: '+ data.posts[i].Venue +'</p><p class="card-text">Quota: '+ data.posts[i].Quota +'</p><p class="card-text">Nymber of participant(s): '+ data.posts[i].NumberOfParticipants +'</p><p class="card-text">Detail: '+ data.posts[i].Content +'</p><div class="mdl-card__actions mdl-card--border"><a id="' + data.posts[i]._id + '"class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" onclick="JoinEvent(this)">Join</a></div></div></div></div></div><br>');
+          $("#post_display").prepend('<div class="row"><div class="col-sm-6"><div class="mdl-shadow--2dp card"><div class="card-body"><h5 class="card-title">' + data.posts[i].Title + '</h5><p class="card-text">Category: '+ data.posts[i].Category +'</p><p class="card-text">Date: '+ data.posts[i].Date +'</p><p class="card-text">Venue: '+ data.posts[i].Venue +'</p><p class="card-text">Quota: '+ data.posts[i].Quota +'</p><p class="card-text">Nymber of participant(s): '+ data.posts[i].NumberOfParticipants +'</p><p class="card-text">Detail: '+ data.posts[i].Content +'</p><div class="dropdown"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect dropbtn" onclick="ShowHostInfo()" style="margin:10px;">Show Host</button><div id="ShowHost" class="dropdown-content"><a>UserID: '+ data.HostIDList[i] +' [RP mark: '+ data.HostMarkList[i] +']</a></div></div><div class="dropdown"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect dropbtn" onclick="ShowPartiInfo()" style="margin:10px;">Show Participants</button><div id="ShowParti" class="dropdown-content"></div></div><div class="mdl-card__actions mdl-card--border"><a id="' + data.posts[i]._id + '"class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" onclick="JoinEvent(this)">Join</a></div></div></div></div></div><br>');
+
+          for (var j = 0; j < data.posts[i].NumberOfParticipants ; j++){
+            $("#ShowParti").append('<a>UserID: '+ data.PartiIDList[ppl] +' [RP mark: '+ data.PartiMarkList[ppl] +']</a>');
+            ppl++;
+          }
+
           i++;
         }
-        
+
+
         for (var z = 0; z < cnt_set; z++){
-          $("#post_display").prepend('<div class="row"><div class="col-sm-6"><div class="mdl-shadow--2dp card"><div class="card-body"><h5 class="card-title">' + data.posts[i].Title + '</h5><p class="card-text">Category: '+ data.posts[i].Category +'</p><p class="card-text">Date: '+ data.posts[i].Date +'</p><p class="card-text">Venue: '+ data.posts[i].Venue +'</p><p class="card-text">Quota: '+ data.posts[i].Quota +'</p><p class="card-text">Nymber of participant(s): '+ data.posts[i].NumberOfParticipants +'</p><p class="card-text">Detail: '+ data.posts[i].Content +'</p><div class="mdl-card__actions mdl-card--border"><a id="' + data.posts[i]._id + '"class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" onclick="JoinEvent(this)">Join</a></div></div></div><div class="col-sm-6"><div class="mdl-shadow--2dp card"><div class="card-body"><h5 class="card-title">' + data.posts[i+1].Title + '</h5><p class="card-text">Category: '+ data.posts[i+1].Category +'</p><p class="card-text">Date: '+ data.posts[i+1].Date +'</p><p class="card-text">Venue: '+ data.posts[i+1].Venue +'</p><p class="card-text">Quota: '+ data.posts[i+1].Quota +'</p><p class="card-text">Nymber of participant(s): '+ data.posts[i+1].NumberOfParticipants +'</p><p class="card-text">Detail: '+ data.posts[i+1].Content +'</p><div class="mdl-card__actions mdl-card--border"><a id="' + data.posts[i+1]._id + '"class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" onclick="JoinEvent(this)">Join</a></div></div></div></div></div><br>');
+          $("#post_display").prepend('<div class="row"><div class="col-sm-6"><div class="mdl-shadow--2dp card"><div class="card-body"><h5 class="card-title">' + data.posts[i].Title + '</h5><p class="card-text">Category: '+ data.posts[i].Category +'</p><p class="card-text">Date: '+ data.posts[i].Date +'</p><p class="card-text">Venue: '+ data.posts[i].Venue +'</p><p class="card-text">Quota: '+ data.posts[i].Quota +'</p><p class="card-text">Nymber of participant(s): '+ data.posts[i].NumberOfParticipants +'</p><p class="card-text">Detail: '+ data.posts[i].Content +'</p><div class="dropdown"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect dropbtn" onclick="ShowHostInfo()" style="margin:10px;">Show Host</button><div id="ShowHost" class="dropdown-content"><a>UserID: '+ data.HostIDList[i] +' [RP mark: '+ data.HostMarkList[i] +']</a></div></div><div class="dropdown"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect dropbtn" onclick="ShowPartiInfo()" style="margin:10px;">Show Participants</button><div id="ShowParti_'+ PartiInfo_ID +'" class="dropdown-content"></div></div><div class="mdl-card__actions mdl-card--border"><a id="' + data.posts[i]._id + '"class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" onclick="JoinEvent(this)">Join</a></div></div></div><div class="col-sm-6"><div class="mdl-shadow--2dp card"><div class="card-body"><h5 class="card-title">' + data.posts[i+1].Title + '</h5><p class="card-text">Category: '+ data.posts[i+1].Category +'</p><p class="card-text">Date: '+ data.posts[i+1].Date +'</p><p class="card-text">Venue: '+ data.posts[i+1].Venue +'</p><p class="card-text">Quota: '+ data.posts[i+1].Quota +'</p><p class="card-text">Nymber of participant(s): '+ data.posts[i+1].NumberOfParticipants +'</p><p class="card-text">Detail: '+ data.posts[i+1].Content +'</p><div class="dropdown"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect dropbtn" onclick="ShowHostInfo()" style="margin:10px;">Show Host</button><div id="ShowHost" class="dropdown-content"><a>UserID: '+ data.HostIDList[i+1] +' [RP mark: '+ data.HostMarkList[i+1] +']</a></div></div><div class="dropdown"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect dropbtn" onclick="ShowPartiInfo()" style="margin:10px;">Show Participants</button><div id="ShowParti_'+ (PartiInfo_ID+1) +'" class="dropdown-content"></div></div><div class="mdl-card__actions mdl-card--border"><a id="' + data.posts[i+1]._id + '"class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" onclick="JoinEvent(this)">Join</a></div></div></div></div></div><br>');
+          for (var j = 0; j < data.posts[i].NumberOfParticipants ; j++){
+            $("#ShowParti"+PartiInfo_ID).append('<a>UserID: '+ data.PartiIDList[ppl] +' [RP mark: '+ data.PartiMarkList[ppl] +']</a>');
+            ppl++;
+          }
+          PartiInfo_ID++;
+          for (var j = 0; j < data.posts[i+1].NumberOfParticipants ; j++){
+            $("#ShowParti"+PartiInfo_ID).append('<a>UserID: '+ data.PartiIDList[ppl] +' [RP mark: '+ data.PartiMarkList[ppl] +']</a>');
+            ppl++;
+          }
+          PartiInfo_ID++;
           i = i + 2;
         }
     });
 
     });
   });
+
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
 </script>
 
 
