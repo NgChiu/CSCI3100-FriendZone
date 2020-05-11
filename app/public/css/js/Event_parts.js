@@ -37,41 +37,88 @@ $("#update_btn").click(function(){
 	$("#post_display").empty();
 	let x = document.getElementById("category").value;
 	if (x === ""){
-		var j = 1;
 		var ppl = 0;
 		$.getJSON("http://localhost:3000/catalog/post",function(data) {
-			if(data.posts.length === 0) console.log("NO Post yet.");
-			for (var i = 0; i < data.posts.length ; i++) {
-				var input = $('<input type="button" name="join_event" id="' + data.posts[i]._id + '" value="Join" onclick="JoinEvent(this)" class="mdl-button mdl-js-button mdl-button--raised" style="background-color: #48AAAD; float: right;">');
-				$("#post_display").prepend("<hr>");
-				for (j = ppl; j < (ppl + data.posts[i].NumberOfParticipants) ; j++){
-					$("#post_display").prepend("<p>" + (data.postList[i].NumberOfParticipants + ppl - j) + ") UserID: " + data.PartiIDList[j] + "[RP mark: " + data.PartiMarkList[j] + "]</p>");
-				}
-				ppl = ppl + data.posts[i].NumberOfParticipants;
-				$("#post_display").prepend("<p>Participants' Information: </p>");
-				$("#post_display").prepend("<p>Host's Information: UserID: " + data.HostIDList[i] + "[RP mark: " + data.HostMarkList[i] + "]</p>");
-				$("#post_display").prepend("<h2>" + data.posts[i].Title + "</h2> <p>Category: " + data.posts[i].Category + "</p> <p>Date:" + data.posts[i].Date + " </p> <p>Venue: " + data.posts[i].Venue + "</p> <p>Quota: " + data.posts[i].Quota + "</p> <p>Number of participant(s): " + data.posts[i].NumberOfParticipants + "</p><p>Detail: " + data.posts[i].Content + "</p>");
-				$("#post_display").prepend(input);
-			}
-		});
+      		if (data.posts.length == 0)
+          		$("#post_display").append("<strong>No post is available yet.</strong>");
+        	var cnt_mod = data.posts.length % 2;
+        	var cnt_set = data.posts.length / 2;
+        	var PartiInfo_ID = 0;
+        	var HostInfo_ID = 0;
+        	var i = 0;
+        	if (cnt_mod == 1){
+
+          		$("#post_display").prepend('<div class="row"><div class="col-sm-6"><div class="mdl-shadow--2dp card"><div class="card-body"><h5 class="card-title">' + data.posts[i].Title + '</h5><p class="card-text">Category: '+ data.posts[i].Category +'</p><p class="card-text">Date: '+ data.posts[i].Date +'</p><p class="card-text">Venue: '+ data.posts[i].Venue +'</p><p class="card-text">Quota: '+ data.posts[i].Quota +'</p><p class="card-text">Number of participant(s): '+ data.posts[i].NumberOfParticipants +'</p><p class="card-text">Detail: '+ data.posts[i].Content +'</p><div class="dropdown"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect dropbtn" onclick="ShowHostInfo('+HostInfo_ID+')" style="margin:10px;">Show Host</button><div id="ShowHost'+HostInfo_ID+'" class="dropdown-content"><a>UserID: '+ data.HostIDList[i] +' [RP mark: '+ data.HostMarkList[i] +']</a></div></div><div class="dropdown"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect dropbtn" onclick="ShowPartiInfo('+PartiInfo_ID+')" style="margin:10px;">Show Participants</button><div id="ShowParti'+PartiInfo_ID+'" class="dropdown-content"></div></div><div class="mdl-card__actions mdl-card--border"><a id="' + data.posts[i]._id + '"class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" onclick="JoinEvent(this)">Join</a></div></div></div></div></div><br>');
+
+          		for (var j = 0; j < data.posts[i].NumberOfParticipants ; j++){
+            		$("#ShowParti"+PartiInfo_ID).append('<a>UserID: '+ data.PartiIDList[ppl] +' [RP mark: '+ data.PartiMarkList[ppl] +']</a>');
+            		ppl++;
+          		}
+          		PartiInfo_ID++;
+          		HostInfo_ID++;
+          		i++;
+        	}
+
+
+        	for (var z = 0; z < cnt_set; z++){
+          		$("#post_display").prepend('<div class="row"><div class="col-sm-6"><div class="mdl-shadow--2dp card"><div class="card-body"><h5 class="card-title">' + data.posts[i].Title + '</h5><p class="card-text">Category: '+ data.posts[i].Category +'</p><p class="card-text">Date: '+ data.posts[i].Date +'</p><p class="card-text">Venue: '+ data.posts[i].Venue +'</p><p class="card-text">Quota: '+ data.posts[i].Quota +'</p><p class="card-text">Number of participant(s): '+ data.posts[i].NumberOfParticipants +'</p><p class="card-text">Detail: '+ data.posts[i].Content +'</p><div class="dropdown"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect dropbtn" onclick="ShowHostInfo('+HostInfo_ID+')" style="margin:10px;">Show Host</button><div id="ShowHost'+HostInfo_ID+'" class="dropdown-content"><a>UserID: '+ data.HostIDList[i] +' [RP mark: '+ data.HostMarkList[i] +']</a></div></div><div class="dropdown"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect dropbtn" onclick="ShowPartiInfo('+PartiInfo_ID+')" style="margin:10px;">Show Participants</button><div id="ShowParti'+PartiInfo_ID+'" class="dropdown-content"></div></div><div class="mdl-card__actions mdl-card--border"><a id="' + data.posts[i]._id + '"class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" onclick="JoinEvent(this)">Join</a></div></div></div></div><div class="col-sm-6"><div class="mdl-shadow--2dp card"><div class="card-body"><h5 class="card-title">' + data.posts[i+1].Title + '</h5><p class="card-text">Category: '+ data.posts[i+1].Category +'</p><p class="card-text">Date: '+ data.posts[i+1].Date +'</p><p class="card-text">Venue: '+ data.posts[i+1].Venue +'</p><p class="card-text">Quota: '+ data.posts[i+1].Quota +'</p><p class="card-text">Number of participant(s): '+ data.posts[i+1].NumberOfParticipants +'</p><p class="card-text">Detail: '+ data.posts[i+1].Content +'</p><div class="dropdown"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect dropbtn" onclick="ShowHostInfo('+(HostInfo_ID+1)+')" style="margin:10px;">Show Host</button><div id="ShowHost'+(HostInfo_ID+1)+'" class="dropdown-content"><a>UserID: '+ data.HostIDList[i+1] +' [RP mark: '+ data.HostMarkList[i+1] +']</a></div></div><div class="dropdown"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect dropbtn" onclick="ShowPartiInfo('+(PartiInfo_ID+1)+')" style="margin:10px;">Show Participants</button><div id="ShowParti'+(PartiInfo_ID+1)+'" class="dropdown-content"></div></div><div class="mdl-card__actions mdl-card--border"><a id="' + data.posts[i+1]._id + '"class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" onclick="JoinEvent(this)">Join</a></div></div></div></div></div><br>');
+          		
+          		for (var j = 0; j < data.posts[i].NumberOfParticipants ; j++){
+            		$("#ShowParti"+PartiInfo_ID).append('<a>UserID: '+ data.PartiIDList[ppl] +' [RP mark: '+ data.PartiMarkList[ppl] +']</a>');
+            		ppl++;
+          		}
+          		PartiInfo_ID++;
+          		HostInfo_ID++
+          		for (var j = 0; j < data.posts[i+1].NumberOfParticipants ; j++){
+            		$("#ShowParti"+PartiInfo_ID).append('<a>UserID: '+ data.PartiIDList[ppl] +' [RP mark: '+ data.PartiMarkList[ppl] +']</a>');
+            		ppl++;
+          		}
+          		PartiInfo_ID++;
+          		HostInfo_ID++;
+          		i = i + 2;
+        	}
+    	});
 	}
 	else{
-		var j = 1;
 		var ppl = 0;
 		$.getJSON("http://localhost:3000/catalog/post/"+x,function(data) {
-			if(data.postList.length === 0) console.log("NO Post yet.");
-			for (var i = 0; i < data.postList.length ; i++) {
-				var input = $('<input type="button" name="join_event" id="' + data.postList[i]._id + '" value="Join" onclick="JoinEvent(this)" class="mdl-button mdl-js-button mdl-button--raised" style="background-color: #48AAAD; float: right;">');
-				$("#post_display").prepend("<hr>");
-				for (j = ppl; j < ppl + data.postList[i].NumberOfParticipants ; j++){
-					$("#post_display").prepend("<p>" + (data.postList[i].NumberOfParticipants + ppl - j) + ") UserID: " + data.PartiIDList[j] + "[RP mark: " + data.PartiMarkList[j] + "]</p>");
-				}
-				ppl = ppl + data.postList[i].NumberOfParticipants;
-				$("#post_display").prepend("<p>Participants' Information: </p>");
-				$("#post_display").prepend("<p>Host's Information: UserID: " + data.HostIDList[i] + "[RP mark: " + data.HostMarkList[i] + "]</p>");
-				$("#post_display").prepend("<h2>" + data.postList[i].Title + "</h2> <p>Category: " + data.postList[i].Category + "</p> <p>Date:" + data.postList[i].Date + " </p> <p>Venue: " + data.postList[i].Venue + "</p> <p>Quota: " + data.postList[i].Quota + "</p> <p>Number of participant(s): " + data.postList[i].NumberOfParticipants + "</p><p>Detail: " + data.postList[i].Content + "</p>");
-				$("#post_display").prepend(input);
-			}
+			if (data.posts.length == 0)
+          		$("#post_display").append("<strong>No post is available yet.</strong>");
+        	var cnt_mod = data.posts.length % 2;
+        	var cnt_set = data.posts.length / 2;
+        	var PartiInfo_ID = 0;
+        	var HostInfo_ID = 0;
+        	var i = 0;
+        	if (cnt_mod == 1){
+
+          		$("#post_display").prepend('<div class="row"><div class="col-sm-6"><div class="mdl-shadow--2dp card"><div class="card-body"><h5 class="card-title">' + data.posts[i].Title + '</h5><p class="card-text">Category: '+ data.posts[i].Category +'</p><p class="card-text">Date: '+ data.posts[i].Date +'</p><p class="card-text">Venue: '+ data.posts[i].Venue +'</p><p class="card-text">Quota: '+ data.posts[i].Quota +'</p><p class="card-text">Number of participant(s): '+ data.posts[i].NumberOfParticipants +'</p><p class="card-text">Detail: '+ data.posts[i].Content +'</p><div class="dropdown"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect dropbtn" onclick="ShowHostInfo('+HostInfo_ID+')" style="margin:10px;">Show Host</button><div id="ShowHost'+HostInfo_ID+'" class="dropdown-content"><a>UserID: '+ data.HostIDList[i] +' [RP mark: '+ data.HostMarkList[i] +']</a></div></div><div class="dropdown"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect dropbtn" onclick="ShowPartiInfo('+PartiInfo_ID+')" style="margin:10px;">Show Participants</button><div id="ShowParti'+PartiInfo_ID+'" class="dropdown-content"></div></div><div class="mdl-card__actions mdl-card--border"><a id="' + data.posts[i]._id + '"class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" onclick="JoinEvent(this)">Join</a></div></div></div></div></div><br>');
+
+          		for (var j = 0; j < data.posts[i].NumberOfParticipants ; j++){
+            		$("#ShowParti"+PartiInfo_ID).append('<a>UserID: '+ data.PartiIDList[ppl] +' [RP mark: '+ data.PartiMarkList[ppl] +']</a>');
+            		ppl++;
+          		}
+          		PartiInfo_ID++;
+          		HostInfo_ID++;
+          		i++;
+        	}
+
+
+        	for (var z = 0; z < cnt_set; z++){
+          		$("#post_display").prepend('<div class="row"><div class="col-sm-6"><div class="mdl-shadow--2dp card"><div class="card-body"><h5 class="card-title">' + data.posts[i].Title + '</h5><p class="card-text">Category: '+ data.posts[i].Category +'</p><p class="card-text">Date: '+ data.posts[i].Date +'</p><p class="card-text">Venue: '+ data.posts[i].Venue +'</p><p class="card-text">Quota: '+ data.posts[i].Quota +'</p><p class="card-text">Number of participant(s): '+ data.posts[i].NumberOfParticipants +'</p><p class="card-text">Detail: '+ data.posts[i].Content +'</p><div class="dropdown"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect dropbtn" onclick="ShowHostInfo('+HostInfo_ID+')" style="margin:10px;">Show Host</button><div id="ShowHost'+HostInfo_ID+'" class="dropdown-content"><a>UserID: '+ data.HostIDList[i] +' [RP mark: '+ data.HostMarkList[i] +']</a></div></div><div class="dropdown"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect dropbtn" onclick="ShowPartiInfo('+PartiInfo_ID+')" style="margin:10px;">Show Participants</button><div id="ShowParti'+PartiInfo_ID+'" class="dropdown-content"></div></div><div class="mdl-card__actions mdl-card--border"><a id="' + data.posts[i]._id + '"class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" onclick="JoinEvent(this)">Join</a></div></div></div></div><div class="col-sm-6"><div class="mdl-shadow--2dp card"><div class="card-body"><h5 class="card-title">' + data.posts[i+1].Title + '</h5><p class="card-text">Category: '+ data.posts[i+1].Category +'</p><p class="card-text">Date: '+ data.posts[i+1].Date +'</p><p class="card-text">Venue: '+ data.posts[i+1].Venue +'</p><p class="card-text">Quota: '+ data.posts[i+1].Quota +'</p><p class="card-text">Number of participant(s): '+ data.posts[i+1].NumberOfParticipants +'</p><p class="card-text">Detail: '+ data.posts[i+1].Content +'</p><div class="dropdown"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect dropbtn" onclick="ShowHostInfo('+(HostInfo_ID+1)+')" style="margin:10px;">Show Host</button><div id="ShowHost'+(HostInfo_ID+1)+'" class="dropdown-content"><a>UserID: '+ data.HostIDList[i+1] +' [RP mark: '+ data.HostMarkList[i+1] +']</a></div></div><div class="dropdown"><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect dropbtn" onclick="ShowPartiInfo('+(PartiInfo_ID+1)+')" style="margin:10px;">Show Participants</button><div id="ShowParti'+(PartiInfo_ID+1)+'" class="dropdown-content"></div></div><div class="mdl-card__actions mdl-card--border"><a id="' + data.posts[i+1]._id + '"class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" onclick="JoinEvent(this)">Join</a></div></div></div></div></div><br>');
+          		for (var j = 0; j < data.posts[i].NumberOfParticipants ; j++){
+            		$("#ShowParti"+PartiInfo_ID).append('<a>UserID: '+ data.PartiIDList[ppl] +' [RP mark: '+ data.PartiMarkList[ppl] +']</a>');
+            		ppl++;
+          		}
+          		PartiInfo_ID++;
+          		HostInfo_ID++
+          		for (var j = 0; j < data.posts[i+1].NumberOfParticipants ; j++){
+            		$("#ShowParti"+PartiInfo_ID).append('<a>UserID: '+ data.PartiIDList[ppl] +' [RP mark: '+ data.PartiMarkList[ppl] +']</a>');
+            		ppl++;
+          		}
+          		PartiInfo_ID++;
+          		HostInfo_ID++;
+          		i = i + 2;
+        	}
 		});
 	}
 	
