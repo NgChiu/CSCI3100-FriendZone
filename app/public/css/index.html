@@ -134,6 +134,8 @@
       $("#post_display").empty();
       var ppl = 0;
       $.getJSON("http://localhost:3000/catalog/post",function(data) {
+        if (data.posts.length == 0)
+          $("#post_display").append("<strong>No post is available yet.</strong>");
         var cnt_mod = data.posts.length % 2;
         var cnt_set = data.posts.length / 2;
         var PartiInfo_ID = 0;
