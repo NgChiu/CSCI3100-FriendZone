@@ -109,6 +109,9 @@
         data: $("#rg").serialize(),
         success: function() {
             window.location.href = "Login.html";
+        },
+        error: function(response){
+            alert(response.responseText);
         }
         });
         return false;
