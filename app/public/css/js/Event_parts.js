@@ -45,7 +45,7 @@ $("#update_btn").click(function(){
 				var input = $('<input type="button" name="join_event" id="' + data.posts[i]._id + '" value="Join" onclick="JoinEvent(this)" class="mdl-button mdl-js-button mdl-button--raised" style="background-color: #48AAAD; float: right;">');
 				$("#post_display").prepend("<hr>");
 				for (j = ppl; j < (ppl + data.posts[i].NumberOfParticipants) ; j++){
-					$("#post_display").prepend("<p>" + j + ") UserID: " + data.PartiIDList[j] + "[RP mark: " + data.PartiMarkList[j] + "]</p>");
+					$("#post_display").prepend("<p>" + (data.postList[i].NumberOfParticipants + ppl - j) + ") UserID: " + data.PartiIDList[j] + "[RP mark: " + data.PartiMarkList[j] + "]</p>");
 				}
 				ppl = ppl + data.posts[i].NumberOfParticipants;
 				$("#post_display").prepend("<p>Participants' Information: </p>");
@@ -64,7 +64,7 @@ $("#update_btn").click(function(){
 				var input = $('<input type="button" name="join_event" id="' + data.postList[i]._id + '" value="Join" onclick="JoinEvent(this)" class="mdl-button mdl-js-button mdl-button--raised" style="background-color: #48AAAD; float: right;">');
 				$("#post_display").prepend("<hr>");
 				for (j = ppl; j < ppl + data.postList[i].NumberOfParticipants ; j++){
-					$("#post_display").prepend("<p>" + j + ") UserID: " + data.PartiIDList[j] + "[RP mark: " + data.PartiMarkList[j] + "]</p>");
+					$("#post_display").prepend("<p>" + (data.postList[i].NumberOfParticipants + ppl - j) + ") UserID: " + data.PartiIDList[j] + "[RP mark: " + data.PartiMarkList[j] + "]</p>");
 				}
 				ppl = ppl + data.postList[i].NumberOfParticipants;
 				$("#post_display").prepend("<p>Participants' Information: </p>");
