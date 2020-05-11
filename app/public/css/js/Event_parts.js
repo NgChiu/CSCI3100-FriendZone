@@ -22,13 +22,13 @@ function JoinEvent(inputbtn){
 }
 
   //show host
-function ShowHostInfo(){
-  document.getElementById("ShowHost").classList.toggle("show");
+function ShowHostInfo(id){
+  document.getElementById("ShowHost"+id).classList.toggle("show");
 }
 
   //show participant
-function ShowPartiInfo(){
-  document.getElementById("ShowParti").classList.toggle("show");
+function ShowPartiInfo(id){
+  document.getElementById("ShowParti"+id).classList.toggle("show");
 }
 
 //Display event--------------------------------------------------
