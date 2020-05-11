@@ -21,6 +21,16 @@ function JoinEvent(inputbtn){
 	});
 }
 
+  //show host
+function ShowHostInfo(){
+  document.getElementById("ShowHost").classList.toggle("show");
+}
+
+  //show participant
+function ShowPartiInfo(){
+  document.getElementById("ShowParti").classList.toggle("show");
+}
+
 //Display event--------------------------------------------------
 $("#update_btn").click(function(){
 	alert('Events Updated!');
