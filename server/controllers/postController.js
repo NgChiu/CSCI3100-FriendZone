@@ -27,8 +27,8 @@ exports.post_list = async function (req, res) {
 			//Get Host Info to get ready for return
 			const tempHost = await Member.findOne({CreatedPost: tempPost._id});
 			if(!tempHost) throw Error('Could not find host data');
-			HostIDList = await [HostIDList, tempHost.UserID];
-			HostMarkList = await [HostMarkList, tempHost.RPmark];
+			HostIDList = await HostIDList.concat(tempHost.UserID);
+			HostMarkList = await HostMarkList.concat(tempHost.RPmark);
 
 			//Get Participants Info to get ready for return
 			const currentJoined = await Joined.find({PostID: tempPost._id});
@@ -36,10 +36,10 @@ exports.post_list = async function (req, res) {
 			for(let tempJoined of currentJoined){
 				const tempParti = await Member.findOne({_id: tempJoined.MemberID});
 				if(!tempParti) throw Error('Could not find participant(s) data');
-				PartiIDList = await [PartiIDList, tempParti.UserID];
-				PartiMarkList = await [PartiMarkList, tempParti.RPmark];
+				PartiIDList = await PartiIDList.concat(tempParti.UserID);
+				PartiMarkList = await PartiMarkList.concat(tempParti.RPmark);
 			}
-			PartiNoList = await [PartiNoList, tempPost.NumberOfParticipants];
+			// PartiNoList = await [PartiNoList, tempPost.NumberOfParticipants];
 		}
 		console.log(posts);
 		console.log(HostIDList);
@@ -292,9 +292,12 @@ exports.show_category = async function (req, res){
 	    for(let tempGenre of showList){
 	    	const tempPost = await Post.findOne({_id: tempGenre.PostID});
 	    	if (!tempPost) throw Error('Could not find post in post database');
-	    	console.log(tempPost);
-	    	postList = await [postList,tempPost];
+	    	postList = await postList.concat(tempPost);
+	    	console.log("Start");
+	    	console.log(postList);
 	    }
+	    // console.log(postList);
+	    console.log("End of postList");
 
 	    let HostIDList = [];
 	    let HostMarkList = [];
@@ -303,25 +306,22 @@ exports.show_category = async function (req, res){
 	    let PartiNoList = [];
 	    var i = 0;
 	    for (let tempPost of postList){
-	    	if(i === 0) i = 1;
 	    	//To get host data ready
-	    	else{
-		    	const tempHost = await Member.findOne({CreatedPost: tempPost._id});
-		    	if(!tempHost) throw Error('Could not find host data');
-		    	HostIDList = await [HostIDList, tempHost.UserID];
-		    	HostMarkList = await [HostMarkList, tempHost.RPmark];
+	    	const tempHost = await Member.findOne({CreatedPost: tempPost._id});
+	    	if(!tempHost) throw Error('Could not find host data');
+	    	HostIDList = await HostIDList.concat(tempHost.UserID);
+	    	HostMarkList = await HostMarkList.concat(tempHost.RPmark);
 
-		    	//To get participants data ready
-		    	const currentJoined = await Joined.find({PostID: tempPost._id});
-		    	if(!currentJoined) throw Error('Could not find post data in joined database');
-		    	for(let tempJoined of currentJoined){
-		    		const tempParti = await Member.findOne({_id: tempJoined.MemberID});
-		    		if(!tempParti) throw Error('Could not find participant(s) data');
-		    		PartiIDList = await [PartiIDList, tempParti.UserID];
-		    		PartiMarkList = await [PartiMarkList, tempParti.RPmark];
-		    	}
-		    	PartiNoList = await [PartiNoList, tempPost.NumberOfParticipants];
-		    }
+	    	//To get participants data ready
+	    	const currentJoined = await Joined.find({PostID: tempPost._id});
+	    	if(!currentJoined) throw Error('Could not find post data in joined database');
+	    	for(let tempJoined of currentJoined){
+	    		const tempParti = await Member.findOne({_id: tempJoined.MemberID});
+	    		if(!tempParti) throw Error('Could not find participant(s) data');
+	    		PartiIDList = await PartiIDList.concat(tempParti.UserID);
+	    		PartiMarkList = await PartiMarkList.concat(tempParti.RPmark);
+	    	}
+	    	// PartiNoList = await [PartiNoList, tempPost.NumberOfParticipants];
 	    }
 		
 		console.log(postList);
