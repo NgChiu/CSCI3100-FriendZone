@@ -158,10 +158,10 @@ exports.post_join = async function (req, res){
 		//If post full
 		// console.log(currentPost.Quota);
 		// console.log(currentPost.NumberOfParticipants);
-		if(currentPost.Quota - currentPost.NumberOfParticipants === 0) throw Error('Post Fulled');
+		if(currentPost.Quota - currentPost.NumberOfParticipants === 0) throw Error('Event Fulled');
 		//If user already created that post
 		if(currentUser.CreatedPost) {
-			if(currentUser.CreatedPost.toString() === currentPost._id.toString()) throw Error('Already created post');
+			if(currentUser.CreatedPost.toString() === currentPost._id.toString()) throw Error('You are the host of this event');
 		}
 		//If user already joined that post
 		// if(currentUser.JoinedPost.toString() === currentPost._id.toString()) throw Error('Already joined post');
