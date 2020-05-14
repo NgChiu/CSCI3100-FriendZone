@@ -80,47 +80,44 @@
     </div>
 </div>
 <script>
-    function validateReg() {
+    function validateReg() { //check whether inputs are valid, and send data wo server
         let userid = document.getElementById("UserID").value;
         let username = document.getElementById("Username").value;
         let password = document.getElementById("Password").value;
         let lineid = document.getElementById("LineID").value;
 
 
-        if (userid === "") {
+        if (userid === "") { //check if UserID is empty
             window.alert("UserID is empty!");
             return false;
         }
-        if (username === "") {
+        if (username === "") { //check if Username is empty
             window.alert("Username is empty!");
             return false;
         }
-        if (password === "") {
+        if (password === "") { //check if Password is empty
             window.alert("Password is empty!");
             return false;
         }
-        if (lineid === "") {
+        if (lineid === "") {//check if LineID is empty
             window.alert("LineID is empty!");
             return false;
         }
-        $.ajax({
+        $.ajax({ //send data to the server
         type: "POST" ,
         url: "http://localhost:3000/catalog/member/register",
         data: $("#rg").serialize(),
-        success: function() {
+        success: function() { //if success, redirect user to login page
+            alert("Registration successful!");
             window.location.href = "Login.html";
         },
-        error: function(response){
+        error: function(response){ //if error occurs, display error message
             alert(response.responseText);
         }
         });
         return false;
     }
 </script>
-<!-- <div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
-  <div class="mdl-snackbar__text"></div>
-  <button class="mdl-snackbar__action" type="button"></button>
-</div> -->
 
 <!-- Footer -->
 <footer>
