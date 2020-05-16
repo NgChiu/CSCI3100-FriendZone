@@ -12,7 +12,7 @@ var catalogRouter = require('./routes/Catalog')
 var Post = require('./models/Post');
 var Genre = require('./models/Genre');
 var Member = require('./models/Member');
-var Category = require('./models/Category');
+var Joined = require('./models/Joined');
 
 var app = express();
 
