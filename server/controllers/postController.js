@@ -1,28 +1,35 @@
+/****************************************************************
+ * Purpose  Backend function related to events
+ * Author   LAW Hei Yiu, LEUNG Pok Ho
+ * Date     2020-05-16
+ ***************************************************************/
 var Post = require('../models/Post');
 var Member = require('../models/Member');
 var Genre = require('../models/Genre');
 var Joined = require('../models/Joined');
-// var util = require("util")
 var async = require('async')
-// var await = require('asyncawait/await');
 
-// Display list of all Authors.
+/****************************************************************
+ * Route    GET /post
+ * Purpose  Return all events from post database that is not expired
+ ***************************************************************/
 exports.post_list = async function (req, res) {
 	console.log("[route] GET /post");
 	try {
-		const posts = await Post.find({Date: { $gte: "20200424" }})
+		//Get today's date and find post gte to today
+		let day = new Date();
+		let Y = day.getFullYear();
+		let M = day.getMonth() + 1;
+		let D = day.getDate();
+		let today = Y * 10000 + M * 100 + D;
+		const posts = await Post.find({Date: { $gte: today.toString() }})
 			.sort([['Date','ascending']]);
 
-		//If there is no posts
-    	if (posts === undefined || posts.length == 0) throw Error('No posts is found');
-		if(!posts) throw Error('No posts is found');
-
-		//Get Host Info to get ready for return
+		//Get Host & Parti Info to get ready for return
 		let HostIDList = [];
 		let HostMarkList = [];
 		let PartiIDList = [];
 		let PartiMarkList = [];
-		let PartiNoList = [];
 		for(let tempPost of posts){
 			//Get Host Info to get ready for return
 			const tempHost = await Member.findOne({CreatedPost: tempPost._id});
@@ -32,44 +39,35 @@ exports.post_list = async function (req, res) {
 
 			//Get Participants Info to get ready for return
 			const currentJoined = await Joined.find({PostID: tempPost._id});
-			// if(!currentJoined) throw Error('Could not find post data in joined database');
+	    	if(!currentJoined) throw Error('Could not find post data in joined database');
 			for(let tempJoined of currentJoined){
 				const tempParti = await Member.findOne({_id: tempJoined.MemberID});
 				if(!tempParti) throw Error('Could not find participant(s) data');
 				PartiIDList = await PartiIDList.concat(tempParti.UserID);
 				PartiMarkList = await PartiMarkList.concat(tempParti.RPmark);
 			}
-			// PartiNoList = await [PartiNoList, tempPost.NumberOfParticipants];
 		}
 		console.log(posts);
 		console.log(HostIDList);
 		console.log(HostMarkList);
 		console.log(PartiIDList);
 		console.log(PartiMarkList);
-		console.log(PartiNoList);
-		res.status(200).json({posts, HostIDList, HostMarkList, PartiIDList, PartiMarkList, PartiNoList});
+		res.status(200).json({posts, HostIDList, HostMarkList, PartiIDList, PartiMarkList});
     		
 	} catch (e) {
-		res.status(404).send(e.message);
 		console.log(e.message);
+		res.status(404).send(e.message);
 	}
 }
 
+/****************************************************************
+ * Route    POST /post/create
+ * Purpose  Create new event in post database according to user input
+ ***************************************************************/
 exports.post_create = async function (req, res) {
 	console.log("[route] POST /post/create");
 	try{
-		//For debug
-		// const input_title = "Let's do 3100 Proj";
-		// const input_category = "Study";
-		// const input_quota = 5;
-		// const input_startTime = "1030";
-		// const input_endTime = "1130";
-		// const input_date = "20200422";
-		// const input_venue = "My Home";
-		// const input_content = "Optional";
-		// console.log(req.body);
-		// console.log(req.user.id);
-
+		//Getting inputs from req.body
 		const input_title = req.body.Title;
 		const input_category = req.body.Category;
 		const input_quota = req.body.Quota;
@@ -81,6 +79,7 @@ exports.post_create = async function (req, res) {
 		//LineID get by search the current user in DB using token
 		//number of parti default to be 0 upon created
 
+		//Exception cases to be handled
 		if(!input_title) throw Error('Post Create Failed. [No Title is inputted]');
 		if(!input_category) throw Error('Post Create Failed. [No Category is inputted');
 		if(!input_quota) throw Error('Post Create Failed. [No Quota is inputted');
@@ -89,19 +88,20 @@ exports.post_create = async function (req, res) {
 		if(!input_date) throw Error('Post Create Failed. [No Date is inputted');
 		if(!input_venue) throw Error('Post Create Failed. [No Venue is inputted');
 
-		if(input_date < "20200424") throw Error('Wrong Date!');
+		//To get today's date and handle exceptional cases related to time & date
+		let day = new Date();
+		let Y = day.getFullYear();
+		let M = day.getMonth() + 1;
+		let D = day.getDate();
+		let today = Y * 10000 + M * 100 + D;
+		if(input_date < today.toString()) throw Error('Wrong Date!');
 		if(input_endTime < input_startTime) throw Error('End time cannot be earilier than start time');
 
-		//For debug
-		// const currentUser = await Member.findOne({_id: "5ea00efd05dba00f9a232517"})
-
 		//get current user by decoding the token (token should be decoded into req.user)
+		//Check whether user exceeds the event creating limit
 		const currentUser = await Member.findOne({_id: req.user.id});
 		if(!currentUser) throw Error('Post Create Failed. [Error occurred when converting token]');
-		// console.log(currentUser);
-		//If user already created post
-		// console.log(currentUser.CreatedPost);
-		if(currentUser.CreatedPost) throw Error('Exceed created limit');
+		if(currentUser.CreatedPost) throw Error('Exceed event creating limit');
 		const input_lineID = currentUser.LineID;
 
 
@@ -135,201 +135,211 @@ exports.post_create = async function (req, res) {
 		console.log(result);
 		res.status(200).json(result);
 	} catch (e){
-		res.status(404).send(e.message);
 		console.log(e.message);
+		res.status(404).send(e.message);
 	}
 }
 
+/****************************************************************
+ * Route    POST /post/join
+ * Purpose  Update databases when the user joins an event
+ ***************************************************************/
 exports.post_join = async function (req, res){
-	console.log("[route] GET /post/join/:postID");
+	console.log("[route] POST /post/join");
 	try{
-		//For debug
-		// const postID = "5ea122e9972f520e9f840a02";
+		//Find post by the postID returned from frontend
 		const postID = req.body.postID;
 		const currentPost = await Post.findOne({_id: postID});
 		if(!currentPost) throw Error('Could not find post');
-		// console.log(currentPost);
-		//For debug
-		// const currentUser = await Member.findOne({_id: "5ea00efd05dba00f9a232517"});
+		//Find current user by token
 		const currentUser = await Member.findOne({_id: req.user.id});
 		if(!currentUser) throw Error('Could not find current user data');
-		// console.log(currentUser);
 
+		//Handle exceptional cases
 		//If post full
-		// console.log(currentPost.Quota);
-		// console.log(currentPost.NumberOfParticipants);
-		if(currentPost.Quota - currentPost.NumberOfParticipants === 0) throw Error('Event Fulled');
-		//If user already created that post
+		if(currentPost.Quota - currentPost.NumberOfParticipants === 0) throw Error('Post Fulled');
+		//If user is the host of that post
 		if(currentUser.CreatedPost) {
 			if(currentUser.CreatedPost.toString() === currentPost._id.toString()) throw Error('You are the host of this event');
 		}
-		//If user already joined that post
-		// if(currentUser.JoinedPost.toString() === currentPost._id.toString()) throw Error('Already joined post');
-		//If user already joined post
+		//If user exceeds event joining limit
 		if(currentUser.JoinedPost) throw Error('Exceed Join Limit');
 
+		//Edit post database
 		currentPost.NumberOfParticipants = currentPost.NumberOfParticipants + 1;
 		const postResult = await currentPost.save();
 		if(!postResult) throw Error('Could not save post data');
 
-		//For debug
+		//Edit member database
 		currentUser.JoinedPost = currentPost._id;
-		// console.log(currentUser.JoinedPost);
 		const userResult = await currentUser.save();
 		if(!userResult) throw Error('Could not save user data');
 
+		//Add to Joined database
 		const newJoined = new Joined({
 			MemberID: currentUser._id,
 			PostID: currentPost._id
 		});
 		const joinedResult = await newJoined.save();
-		console.log(newJoined);
 		if(!joinedResult) throw Error('Could not save joined data');
 
+		console.log(currentPost);
 		res.status(200).send(currentPost);
 	} catch (e){
-		res.status(404).send(e.message);
 		console.log(e.message);
+		res.status(404).send(e.message);
 	}
 }
 
+/****************************************************************
+ * Route    POST /post/delete
+ * Purpose  Remove data from databases when the user deletes an event
+ ***************************************************************/
 exports.post_delete = async function (req, res){
-	console.log("[route] GET /post/delete/:postID");
+	console.log("[route] POST /post/delete");
 	try{
-		//For debug
-		// const currentPost = await Post.findOne({_id: "5ea122e9972f520e9f840a02"});
-		// const currentUser = await Member.findOne({_id: "5e9f2158ab37a91a3d2e9698"});
-		// const currentPost = await Post.findOne({_id: req.body.postID});
-		// if(!currentPost) throw Error('Could not find post data');
+		//Get current user from token
 		const currentUser = await Member.findOne({_id: req.user.id});
 		if(!currentUser) throw Error('Could not find user data');
 
+		//Handle exceptional cases
 		//If user have not create any post
 		if(!currentUser.CreatedPost) throw Error('Have not created any post yet');
-		//If user did not create that post
-		// if(!(currentUser.CreatedPost.toString() === currentPost._id.toString())) throw Error('Not the creator of this post');
+
+		//Set currentPostID
 		const currentPostID = currentUser.CreatedPost;
+
 		//Remove post from database
 		const currentPost = await Post.findOne({_id: currentUser.CreatedPost});
 		if (!currentPost) throw Error('Could not find post data');
-	    const postRemove = await currentPost.remove();
-	    if (!postRemove) throw Error('Could not remove post');
-	    //Remove createdpost from currentUser
-	    const userResult = await Member.updateOne( { _id: currentUser._id },{ $unset: {"CreatedPost": ""}});
-	    console.log(currentUser.CreatedPost);
-	    if(!userResult) throw Error('Could not update user data');
-	    //Remove all related post from Joined database and joined member database
-	    var currentJoined = await Joined.find({PostID: currentPostID});
-	    console.log(currentJoined);
-	    for(let tempJoined of currentJoined){
-	    	const tempUser = await Member.findOne({_id: tempJoined.MemberID});
-	    	console.log(tempUser);
-	    	const userResult = await Member.updateOne( { _id: tempUser._id },{ $unset: {"JoinedPost": ""}});
-	    	if(!tempUser || !userResult) throw Error('Could not delete joined member data');
-	    	const joinedRemove = await tempJoined.remove();
-	    	if (!joinedRemove) throw Error('Could not delete joined member data');
-	    };
-	    //Remove the post from genre database
-	    var currentGenre = await Genre.findOne({PostID: currentPostID});
-	    const genreRemoved = await currentGenre.remove();
-	    if (!currentGenre || !genreRemoved) throw Error('Could not remove genre data');
+		const postRemove = await currentPost.remove();
+		if (!postRemove) throw Error('Could not remove post');
 
-	    console.log(currentUser);
-	    res.status(200).send(currentUser);
+		//Remove createdpost from currentUser
+		const userResult = await Member.updateOne( { _id: currentUser._id },{ $unset: {"CreatedPost": ""}});
+		console.log(currentUser.CreatedPost);
+		if(!userResult) throw Error('Could not update user data');
+
+		//Remove data for all participants of that event
+		//Remove all related post from Joined database and Member database
+		var currentJoined = await Joined.find({PostID: currentPostID});
+		for(let tempJoined of currentJoined){
+			const tempUser = await Member.findOne({_id: tempJoined.MemberID});
+			const userResult = await Member.updateOne( { _id: tempUser._id },{ $unset: {"JoinedPost": ""}});
+			if(!tempUser || !userResult) throw Error('Could not delete joined member data');
+			const joinedRemove = await tempJoined.remove();
+			if (!joinedRemove) throw Error('Could not delete joined member data');
+		};
+
+		//Remove the post from genre database
+		var currentGenre = await Genre.findOne({PostID: currentPostID});
+		const genreRemoved = await currentGenre.remove();
+		if (!currentGenre || !genreRemoved) throw Error('Could not remove genre data');
+
+		console.log(currentUser);
+		res.status(200).send(currentUser);
 	} catch (e){
 		console.log(e.message);
 		res.status(404).send(e.message);
 	}
 }
 
+/****************************************************************
+ * Route    POST /post/quit
+ * Purpose  Remove data from databases when the user quits an event
+ ***************************************************************/
 exports.post_quit = async function (req, res){
-	console.log("[route] GET /post/quit/:postID");
+	console.log("[route] POST /post/quit");
 	try{
-		// const currentPost = await Post.findOne({_id: req.body.postID});
-		// if(!currentPost) throw Error('Could not find post data');
+		//Get current user from token
 		const currentUser = await Member.findOne({_id: req.user.id});
 		if(!currentUser) throw Error('Could not find member data');
 		console.log(currentUser);
 
+		//Handle exceptional cases
 		//if user have not joined any post
 		if(!currentUser.JoinedPost) throw Error('Have not joined any post yet');
-		//If user have not joined that post
-		// if(currentUser.JoinedPost.toString() !== currentPost._id.toString()) throw Error('Have not joined this post');
 
-		//update number of parti in post
+		//update number of parti of that post in post database
 		const currentPost = await Post.findOne({_id: currentUser.JoinedPost});
 		if(!currentPost) throw Error('Could not find post data');
-		console.log(currentPost);
 		currentPost.NumberOfParticipants = currentPost.NumberOfParticipants - 1;
 		const postResult = await currentPost.save();
 		if(!postResult) throw Error('Could not update post data');
-		//remove currentuser.joinedpost
-	    const userResult = await Member.updateOne( { _id: currentUser._id },{ $unset: {"JoinedPost": ""}});
-	    console.log(currentUser.CreatedPost);
-	    if(!userResult) throw Error('Could not update user data');
-	    //Remove from Joined database
-	    const currentJoined = await Joined.findOne({PostID: currentPost._id, MemberID: currentUser._id});
-	    const joinedRemoved = await currentJoined.remove();
-	    if (!currentJoined||!joinedRemoved) throw Error('Could not update joined database');
 
-	    console.log(currentUser);
-	    res.status(200).send(currentUser);
+		//remove currentuser.joinedpost
+		const userResult = await Member.updateOne( { _id: currentUser._id },{ $unset: {"JoinedPost": ""}});
+		console.log(currentUser.CreatedPost);
+		if(!userResult) throw Error('Could not update user data');
+
+		//Remove from Joined database
+		const currentJoined = await Joined.findOne({PostID: currentPost._id, MemberID: currentUser._id});
+		const joinedRemoved = await currentJoined.remove();
+		if (!currentJoined||!joinedRemoved) throw Error('Could not update joined database');
+
+		console.log(currentUser);
+		res.status(200).send(currentUser);
 	} catch (e){
 		console.log(e.message);
 		res.status(404).send(e.message);
 	}
 }
 
+/****************************************************************
+ * Route    GET /post/:catID
+ * Purpose  Return all events from post database that is not expired and is from the target category
+ ***************************************************************/
 exports.show_category = async function (req, res){
 	console.log("[route] GET /post/"+req.params.catID);
 	try{
-		// console.log(req.params.catID);
+		//Handle cases where category is illegal
 		if (req.params.catID !== "sports" && req.params.catID !== "meal" && req.params.catID !== "study" && req.params.catID !== "gaming" && req.params.catID !== "others")
 			throw Error('Category not found');
+
+		//Find the all the postID with that genre
 		const showList = await Genre.find({Genre: req.params.catID});
 		
+		//Find all the post in that genre by PostID and date > today
+		let day = new Date();
+		let Y = day.getFullYear();
+		let M = day.getMonth() + 1;
+		let D = day.getDate();
+		let today = Y * 10000 + M * 100 + D;
 	 	let postList = [];
-	    for(let tempGenre of showList){
-	    	const tempPost = await Post.findOne({_id: tempGenre.PostID});
-	    	if (!tempPost) throw Error('Could not find post in post database');
-	    	postList = await postList.concat(tempPost);
-	    	console.log("Start");
-	    	console.log(postList);
-	    }
-	    // console.log(postList);
-	    console.log("End of postList");
+		for(let tempGenre of showList){
+		const tempPost = await Post.findOne({_id: tempGenre.PostID, Date: { $gte: today.toString() }});
+		if(tempPost) postList = await postList.concat(tempPost);
+		}
 
-	    let HostIDList = [];
-	    let HostMarkList = [];
-	    let PartiIDList = [];
-	    let PartiMarkList = [];
-	    let PartiNoList = [];
-	    var i = 0;
-	    for (let tempPost of postList){
-	    	//To get host data ready
-	    	const tempHost = await Member.findOne({CreatedPost: tempPost._id});
-	    	if(!tempHost) throw Error('Could not find host data');
-	    	HostIDList = await HostIDList.concat(tempHost.UserID);
-	    	HostMarkList = await HostMarkList.concat(tempHost.RPmark);
+		//Get Host & Parti Info to get ready for return
+		let HostIDList = [];
+		let HostMarkList = [];
+		let PartiIDList = [];
+		let PartiMarkList = [];
+		var i = 0;
+		for (let tempPost of postList){
+			//To get host data ready
+			const tempHost = await Member.findOne({CreatedPost: tempPost._id});
+			if(!tempHost) throw Error('Could not find host data');
+			HostIDList = await HostIDList.concat(tempHost.UserID);
+			HostMarkList = await HostMarkList.concat(tempHost.RPmark);
 
-	    	//To get participants data ready
-	    	const currentJoined = await Joined.find({PostID: tempPost._id});
-	    	if(!currentJoined) throw Error('Could not find post data in joined database');
-	    	for(let tempJoined of currentJoined){
-	    		const tempParti = await Member.findOne({_id: tempJoined.MemberID});
-	    		if(!tempParti) throw Error('Could not find participant(s) data');
-	    		PartiIDList = await PartiIDList.concat(tempParti.UserID);
-	    		PartiMarkList = await PartiMarkList.concat(tempParti.RPmark);
-	    	}
-	    	// PartiNoList = await [PartiNoList, tempPost.NumberOfParticipants];
-	    }
+			//To get participants data ready
+			const currentJoined = await Joined.find({PostID: tempPost._id});
+			if(!currentJoined) throw Error('Could not find post data in joined database');
+			for(let tempJoined of currentJoined){
+				const tempParti = await Member.findOne({_id: tempJoined.MemberID});
+				if(!tempParti) throw Error('Could not find participant(s) data');
+				PartiIDList = await PartiIDList.concat(tempParti.UserID);
+				PartiMarkList = await PartiMarkList.concat(tempParti.RPmark);
+			}
+		}
 		
 		console.log(postList);
 		console.log(HostIDList);
 		console.log(HostMarkList);
 		console.log(PartiIDList);
 		console.log(PartiMarkList);
-		console.log(PartiNoList);
 		res.status(200).json({postList, HostIDList, HostMarkList, PartiIDList, PartiMarkList});
 	} catch (e){
 		console.log(e.message);
