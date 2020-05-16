@@ -39,7 +39,7 @@ exports.post_list = async function (req, res) {
 
 			//Get Participants Info to get ready for return
 			const currentJoined = await Joined.find({PostID: tempPost._id});
-	    	if(!currentJoined) throw Error('Could not find post data in joined database');
+	    		if(!currentJoined) throw Error('Could not find post data in joined database');
 			for(let tempJoined of currentJoined){
 				const tempParti = await Member.findOne({_id: tempJoined.MemberID});
 				if(!tempParti) throw Error('Could not find participant(s) data');
@@ -307,8 +307,8 @@ exports.show_category = async function (req, res){
 		let today = Y * 10000 + M * 100 + D;
 	 	let postList = [];
 		for(let tempGenre of showList){
-		const tempPost = await Post.findOne({_id: tempGenre.PostID, Date: { $gte: today.toString() }});
-		if(tempPost) postList = await postList.concat(tempPost);
+			const tempPost = await Post.findOne({_id: tempGenre.PostID, Date: { $gte: today.toString() }});
+			if(tempPost) postList = await postList.concat(tempPost);
 		}
 
 		//Get Host & Parti Info to get ready for return
