@@ -1,14 +1,12 @@
+/****************************************************************
+ * Purpose  Schema for members
+ * Author   LAW Hei Yiu, LEUNG Pok Ho
+ * Date     2020-05-16
+ ***************************************************************/
 const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 const model = mongoose.model;
-
-// const EventSchema = new Schema({
-//   eventId: { type: Number, required: true, unique: true },
-//   name: { type: String, required: true },
-//   loc: { type: mongoose.Schema.Types.ObjectId, ref: 'locations' },
-//   quota: { type: Number }
-// });
 
 const MemberSchema = new Schema({
 	Username: { type: String, required: true },
@@ -20,7 +18,7 @@ const MemberSchema = new Schema({
 	CreatedPost: { type: mongoose.Schema.Types.ObjectId, ref: 'posts' }
 });
 
-//const Event = model('event', EventSchema);
-
-//Export model
+/****************************************************************
+ * Export model
+ ***************************************************************/
 module.exports = model('member', MemberSchema);
