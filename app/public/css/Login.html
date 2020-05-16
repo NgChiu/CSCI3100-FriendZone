@@ -87,27 +87,27 @@
     </div>
 </div>
 <script>
-    function validateLogin() {
+    function validateLogin() { //check whether UserID and password are empty,if not then send to server for validating the account 
         let userid = document.getElementById("UserID").value;
         let password = document.getElementById("Password").value;
 
-        if (userid === "") {
+        if (userid === "") { //if UserID is emoty the display error message
             window.alert("UserID is empty!");
             return false;
         }
-        if (password === "") {
+        if (password === "") { //if password is empty then display error message
             window.alert("Password is empty!");
             return false;
         }
-        $.ajax({
+        $.ajax({ //send UserID and password to server for validating account
             type: "POST" ,
             url: "http://localhost:3000/catalog/member/Login",
             data: $("#lg").serialize(),
-            success: function(response) {
+            success: function(response) { //if success then store a JSON Web Token from server to localstorage, redirect to index page
                 localStorage.setItem("token", response.Token);
                 window.location.href = "index.html";
             },
-            error: function(response){
+            error: function(response){ //else display error message
 		    window.alert("Wrong UserID/Password");
 	        }
         });
