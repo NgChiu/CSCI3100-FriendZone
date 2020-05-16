@@ -16,7 +16,7 @@ const  JWT_SECRET  = {
 module.exports =  (req, res, next) => {
   	const token = req.body.token;
 
-  //If no token
+  	//If no token
 	if (!token){
   		console.log("NO token");
     	return res.status(401).json({ msg: 'Invalid Access (NO Token)' });
