@@ -53,6 +53,7 @@
     <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
             <!-- Textfield with Floating Label -->
+            <!-- login form, click OK button will run validateReg()-->
             <form id="rg" action="http://localhost:3000/catalog/member/register" method="POST" onsubmit="return validateReg()">
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <input class="mdl-textfield__input" type="text" id="Username" name="regUsername">
@@ -80,7 +81,7 @@
     </div>
 </div>
 <script>
-    function validateReg() { //check whether inputs are valid, and send data wo server
+    function validateReg() { //check whether inputs are valid, and send data to server
         let userid = document.getElementById("UserID").value;
         let username = document.getElementById("Username").value;
         let password = document.getElementById("Password").value;
