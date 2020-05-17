@@ -30,7 +30,7 @@ router.get('/post/:catID', postController.show_category);
  ***************************************************************/
 router.post('/member/login', memberController.member_login);
 
-router.post('/member/register',memberController.member_register);
+router.post('/member/register', memberController.member_register);
 
 router.post('/member/myself',auth, memberController.myself);
 
