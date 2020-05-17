@@ -102,6 +102,7 @@ exports.post_create = async function (req, res) {
 		const currentUser = await Member.findOne({_id: req.user.id});
 		if(!currentUser) throw Error('Post Create Failed. [Error occurred when converting token]');
 		if(currentUser.CreatedPost) throw Error('Exceed event creating limit');
+		//get current user's LineID to create event
 		const input_lineID = currentUser.LineID;
 
 
