@@ -20,8 +20,8 @@ FriendZone is a website designed for people, mostly students, to expand their fr
 
 ### Credit
 + Bootstrap Template
-> https://startbootstrap.com/themes/clean-blog/
+&nbsp&nbsp&nbsp&nbsphttps://startbootstrap.com/themes/clean-blog/
 + Button Template
-> https://getmdl.io/components/index.html#buttons-section
+&nbsp&nbsp&nbsp&nbsphttps://getmdl.io/components/index.html#buttons-section
 
 Last Modified: 17/05/2020
