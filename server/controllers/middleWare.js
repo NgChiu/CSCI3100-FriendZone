@@ -19,18 +19,18 @@ module.exports =  (req, res, next) => {
   	//If no token
 	if (!token){
   		console.log("NO token");
-    	return res.status(401).json({ msg: 'Invalid Access (NO Token)' });
+    		return res.status(401).json({ msg: 'Invalid Access (NO Token)' });
 	}
 
   	try {
-    	//Check if token valid
-    	const decoded = jwt.verify(token, JWT_SECRET.jwtSecret);
-    	if(!decoded) throw Error('could not decode token');
-   		//return user
-    	req.user = decoded;
-    	next();
+		//Check if token valid
+		const decoded = jwt.verify(token, JWT_SECRET.jwtSecret);
+		if(!decoded) throw Error('could not decode token');
+		//return user
+		req.user = decoded;
+		next();
   	} catch (e) {
-    	console.log(e.message);
-    	res.status(400).json({ msg: 'Invalid Access (INVALID Token)' });
+		console.log(e.message);
+		res.status(400).json({ msg: 'Invalid Access (INVALID Token)' });
   	}
 };
