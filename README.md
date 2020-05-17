@@ -9,7 +9,7 @@ FriendZone is a website designed for people, mostly students, to expand their fr
 |Front-end (js)|/app/public/css/js|
 |Back-end (main functions)|/server/controllers|
 |Back-end (routes)|/server/routes|
-|Back-end (Schema/model)|/server/models|
+|Back-end (schema/model)|/server/models|
 
 ### Group Member
 1. CHAN Yuk Fai
@@ -17,5 +17,6 @@ FriendZone is a website designed for people, mostly students, to expand their fr
 3. LAW Hei Yiu
 4. LEUNG Pok Ho
 5. NG Chiu
+
 
 Last Modified: 17/05/2020
