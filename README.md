@@ -18,5 +18,4 @@ FriendZone is a website designed for people, mostly students, to expand their fr
 4. LEUNG Pok Ho
 5. NG Chiu
 
-
 Last Modified: 17/05/2020
